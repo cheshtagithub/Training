@@ -288,3 +288,123 @@ company_db=# SELECT * FROM departments;
              2 | Human Resources
 (4 rows)
 ```
+
+## Retrieving data in order
+ORDER BY clause is used to sort the data in ascending or descending order, based on one or more columns.
+
+#### Syntax
+```bash
+SELECT column-list
+FROM table_name
+[WHERE condition]
+[ORDER BY column1, column2, .. columnN] [ASC | DESC];
+```
+
+**Example:**
+```bash
+company_db=# SELECT * FROM departments
+company_db-# ORDER BY department_id;
+ department_id | department_name 
+---------------+-----------------
+             1 | IT
+             2 | Human Resources
+             3 | Finance
+             4 | Marketing
+(4 rows)
+```
+
+## Deleting data from table
+DELETE statement is used to delete the existing records from a table. You can use WHERE clause with DELETE statement to delete the selected rows. Otherwise, all the records would be deleted.
+
+#### Syntax
+```bash
+DELETE FROM table_name
+WHERE [condition];
+```
+
+**Example:**
+```bash
+company_db=# DELETE FROM departments
+company_db-# WHERE department_name = 'Marketing';
+DELETE 1
+```
+```bash
+company_db=# SELECT * FROM departments;
+ department_id | department_name 
+---------------+-----------------
+             1 | IT
+             3 | Finance
+             2 | Human Resources
+(3 rows)
+```
+
+## Altering a table  
+It is used to modify the structure of an existing table.  
+We use it to:  
+🔷 Add a column  
+🔷 Remove a column  
+🔷 Rename a column  
+🔷 Change data type  
+🔷 Add constraints
+
+#### Syntax
+1️⃣ Add Column  
+```bash
+ALTER TABLE table_name
+ADD COLUMN column_name data_type;
+```
+**Example:**
+```bash
+company_db=# ALTER TABLE departments
+company_db-# ADD COLUMN created_at DATE;
+ALTER TABLE
+```
+```bash
+company_db=# SELECT * FROM departments;
+ department_id | department_name | created_at 
+---------------+-----------------+------------
+             1 | IT              | 
+             3 | Finance         | 
+             2 | Human Resources | 
+(3 rows)
+```
+2️⃣ Rename a Column  
+```bash
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+```
+**Example:**
+```bash
+company_db=# ALTER TABLE departments
+company_db-# RENAME COLUMN department_name TO dept_name;
+ALTER TABLE
+```
+```bash
+company_db=# SELECT * FROM departments;
+ department_id |    dept_name    | created_at 
+---------------+-----------------+------------
+             1 | IT              | 
+             3 | Finance         | 
+             2 | Human Resources | 
+(3 rows)
+```
+3️⃣ Drop a Column
+```bash
+ALTER TABLE table_name
+DROP COLUMN column_name;
+```
+**Example:**
+```bash
+company_db=# ALTER TABLE departments
+company_db-# DROP COLUMN created_at;
+ALTER TABLE
+```
+```bash
+company_db=# SELECT * FROM departments;
+ department_id |    dept_name    
+---------------+-----------------
+             1 | IT
+             3 | Finance
+             2 | Human Resources
+(3 rows)
+```
