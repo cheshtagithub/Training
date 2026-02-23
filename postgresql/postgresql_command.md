@@ -185,3 +185,106 @@ company_db(# department_name VARCHAR(100) NOT NULL UNIQUE
 company_db(# );
 CREATE TABLE
 ```
+
+## Inserting data into table
+INSERT INTO statement allows user to insert one or new rows into a table. One can insert a single row at a time or several rows as a result of a query.
+
+#### Syntax
+```bash
+INSERT INTO TABLE_NAME (column1, column2, column3, ..., columnN)
+VALUES (value1, value2, value3, ..., valueN);
+```
+
+**Example:**
+```bash
+INSERT INTO departments(department_name)
+company_db-# VALUES
+company_db-# ('IT')
+company_db-# ('HR')
+company_db-# ('Finance'),
+company_db-# ('Marketing');
+INSERT 0 4
+company_db=# 
+```
+
+## Selecting data from table
+SELECT statement is used to fetch the data from a database table that returns data in the form of result table. These result tables are called result-sets.
+
+#### Syntax
+```bash
+SELECT column1, column2, columnN FROM table_name;
+```
+To fetch all the fields from the table:
+```bash
+SELECT * FROM table_name;
+```
+
+**Example:**
+```bash
+company_db=# SELECT * FROM departments;
+ department_id | department_name 
+---------------+-----------------
+             1 | IT
+             2 | HR
+             3 | Finance
+             4 | Marketing
+(4 rows)
+```
+## Filtering data from the table
+We use WHERE clause to filter the data. WHERE clause is used to specify a condition while fetching the data from single table or joining with multiple tables.  
+If the given condition is satisfied, only then it returns specific value from the table. You can filter out rows that you do not want included in the result-set by using the WHERE clause.  
+The WHERE clause not only is used in SELECT statement, but it is also used in UPDATE, DELETE statement, etc., which we would examine in subsequent chapters.
+
+#### Syntax
+```bash
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [search_condition]
+```
+
+**Example:**
+```bash
+company_db=# SELECT * FROM departments
+company_db-# WHERE department_name = 'IT';
+ department_id | department_name 
+---------------+-----------------
+             1 | IT
+(1 row)
+```
+```bash
+company_db=# SELECT * FROM departments
+company_db-# WHERE department_id > 2;
+ department_id | department_name 
+---------------+-----------------
+             3 | Finance
+             4 | Marketing
+(2 rows)
+```
+
+## Updating data in the table
+UPDATE statement is used to modify or change the existing records in a table. You can use WHERE clause with UPDATE statement to update the selected rows. Otherwise, all the rows would be updated.
+
+#### Syntax
+```bash
+UPDATE table_name
+SET column1 = value1, column2 = value2, ..., columnN = valueN
+WHERE [condition];
+```
+
+**Example:**
+```bash
+company_db=# UPDATE departments
+company_db-# SET department_name = 'Human Resources'
+company_db-# WHERE department_name = 'HR';
+UPDATE 1
+```
+```bash
+company_db=# SELECT * FROM departments;
+ department_id | department_name 
+---------------+-----------------
+             1 | IT
+             3 | Finance
+             4 | Marketing
+             2 | Human Resources
+(4 rows)
+```
