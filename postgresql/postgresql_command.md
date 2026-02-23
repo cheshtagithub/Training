@@ -138,7 +138,7 @@ Used for status fields such as active/inactive, yes/no, enabled/disabled.
 5️⃣ Auto-Increment Type: Used to automatically generate unique numeric values.  
 Commonly used for primary keys to uniquely identify records.
 
-## CREATE Database
+## Create databse
 PostgreSQL provides two ways of creating a new database −  
 🔷 Using CREATE DATABASE, an SQL command.  
 🔷 Using createdb a command-line executable.
@@ -153,3 +153,35 @@ The basic syntax of CREATE DATABASE statement is as follows −
 CREATE DATABASE dbname;
 ```
 
+**Example:** Creating and connecting with a database.  
+```bash
+postgres=# CREATE DATABASE company_db;
+CREATE DATABASE
+postgres=# \c company_db
+You are now connected to database "company_db" as user "postgres".
+company_db=# 
+```
+
+## Create table  
+ CREATE TABLE statement is used to create a new table in any of the given database.
+
+ #### Syntax
+ The basic syntax of creating a table is as follows:  
+```bash 
+CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+   PRIMARY KEY( one or more columns )
+);
+```
+**Example:**
+```bash
+company_db=# CREATE TABLE departments(
+company_db(# department_id SERIAL PRIMARY KEY,
+company_db(# department_name VARCHAR(100) NOT NULL UNIQUE
+company_db(# );
+CREATE TABLE
+```
