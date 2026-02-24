@@ -73,23 +73,18 @@ They are different from normal SQL commands.
 🔷 \? → Shows all available psql commands.  
 🔷 \h → Shows help for SQL commands.
 
-Used to understand available operations and syntax guidance.
 2️⃣ Database Commands:  
 🔷 \l → Lists all databases.  
 🔷 \c → Connects to a specific database.  
 
-Used for database navigation.
 3️⃣ Table and Schema Commands:  
 🔷 \dt → Lists tables in the current database.  
 🔷 \d → Describes a table.  
 🔷 \dn → Lists schemas.  
 
-Used for inspecting database structure.
 4️⃣ Session Control Commands:  
 🔷 \q → Quits psql.  
-🔷 \! → Executes a system (shell) command.  
-
-Used for managing the working session.
+🔷 \\! → Executes a system (shell) command.  
 
 ## Data Types in PostgreSQL
 
@@ -486,5 +481,163 @@ company_db=# SELECT * FROM departments;
              1 | IT
              3 | Finance
              2 | Human Resources
+(3 rows)
+```
+
+### Group By
+The PostgreSQL GROUP BY clause is used in collaboration with the SELECT statement to group together those rows in a table that have identical data. This is done to eliminate redundancy in the output and/or compute aggregates that apply to these groups. The GROUP BY clause follows the WHERE clause in a SELECT statement and precedes the ORDER BY clause.
+
+#### Syntax
+```bash
+SELECT column-list
+FROM table_name
+WHERE [ conditions ]
+GROUP BY column1, column2....columnN
+ORDER BY column1, column2....columnN
+```
+
+**Example:**
+Creating table employees to practice group by.
+```bash
+company_db=# CREATE TABLE employees(employee_id SERIAL PRIMARY KEY,
+company_db(# first_name VARCHAR(50) NOT NULL,
+company_db(# salary NUMERIC(10,2) NOT NULL,
+company_db(# department_id INTEGER REFERENCES departments(department_id)
+company_db(# );
+CREATE TABLE
+```
+Employees table:  
+```bash
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           7 | Rohit      | 62000.00 |             1
+           1 | Karan      | 48000.00 |             1
+           3 | Arjun      | 51000.00 |             1
+           5 | Vikram     | 75000.00 |             2
+           2 | Sneha      | 72000.00 |             2
+           8 | Divya      | 71000.00 |             2
+           4 | Meera      | 68000.00 |             3
+           9 | Manish     | 59000.00 |             3
+           6 | Anita      | 53000.00 |             3
+(9 rows)
+```
+Using group by on above table:
+```bash
+company_db=# SELECT department_id, COUNT(*)
+company_db-# FROM employees
+company_db-# GROUP BY department_id;
+ department_id | count 
+---------------+-------
+             3 |     3
+             2 |     3
+             1 |     3
+(3 rows)
+```
+```bash
+company_db=# SELECT department_id, SUM(salary)
+company_db-# FROM employees
+company_db-# GROUP BY department_id;
+ department_id |    sum    
+---------------+-----------
+             3 | 180000.00
+             2 | 218000.00
+             1 | 161000.00
+(3 rows)
+```
+```bash
+company_db=# SELECT department_id, AVG(salary)
+company_db-# FROM employees
+company_db-# GROUP BY department_id;
+ department_id |        avg         
+---------------+--------------------
+             3 | 60000.000000000000
+             2 | 72666.666666666667
+             1 | 53666.666666666667
+(3 rows)
+```
+
+### Having clause
+The HAVING clause allows us to pick out particular rows where the function's result meets some condition. The WHERE clause places conditions on the selected columns, whereas the HAVING clause places conditions on groups created by the GROUP BY clause.
+
+#### Syntax
+```bash 
+SELECT column1, column2
+FROM table1, table2
+WHERE [ conditions ]
+GROUP BY column1, column2
+HAVING [ conditions ]
+ORDER BY column1, column2
+```
+
+**Example:**
+Show Departments Having More Than 2 Employees
+```bash
+company_db=# SELECT department_id, COUNT(*)
+company_db-# FROM employees
+company_db-# GROUP BY department_id
+company_db-# HAVING COUNT(*) > 2;
+ department_id | count 
+---------------+-------
+             3 |     3
+             2 |     3
+             1 |     3
+(3 rows)
+```
+Show Departments Where Average Salary > 60000
+```bash
+company_db=# SELECT department_id, AVG(salary)
+company_db-# FROM employees
+company_db-# GROUP BY department_id
+company_db-# HAVING AVG(salary) > 60000;
+ department_id |        avg         
+---------------+--------------------
+             2 | 72666.666666666667
+(1 row)
+```
+### Distinct keyword
+DISTINCT keyword is used in conjunction with SELECT statement to eliminate all the duplicate records and fetching only unique records. There may be a situation when you have multiple duplicate records in a table. While fetching such records, it makes more sense to fetch only unique records instead of fetching duplicate records.
+
+#### Syntax
+```bash
+SELECT DISTINCT column1, column2, .... , columnN
+FROM table_name
+WHERE [condition]
+```
+
+**Example:**
+```bash
+company_db=# SELECT DISTINCT department_id
+company_db-# FROM employees;
+ department_id 
+---------------
+             3
+             2
+             1
+(3 rows)
+```
+
+### Limit and Offset clause 
+LIMIT is used to restrict the number of rows returned.  
+OFFSET is used to skip a number of rows before starting to return rows.
+
+#### Syntax
+```bash
+SELECT column_name
+FROM table_name
+LIMIT number
+OFFSET number;
+```
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# LIMIT 3
+company_db-# OFFSET 2;
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           3 | Arjun      | 51000.00 |             1
+           4 | Meera      | 68000.00 |             3
+           5 | Vikram     | 75000.00 |             2
 (3 rows)
 ```
