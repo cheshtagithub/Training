@@ -138,12 +138,14 @@ Used for status fields such as active/inactive, yes/no, enabled/disabled.
 5️⃣ Auto-Increment Type: Used to automatically generate unique numeric values.  
 Commonly used for primary keys to uniquely identify records.
 
-## Create databse
+## Database commands
+
+### Create databse
 PostgreSQL provides two ways of creating a new database −  
 🔷 Using CREATE DATABASE, an SQL command.  
 🔷 Using createdb a command-line executable.
 
-### Using CREATE DATABASE
+**Using CREATE DATABASE**
 
 This command will create a database from PostgreSQL shell prompt.
 
@@ -162,7 +164,85 @@ You are now connected to database "company_db" as user "postgres".
 company_db=# 
 ```
 
-## Create table  
+### Alter database
+ALTER DATABASE is used to modify the properties of an existing database, such as renaming the database, changing the owner of the database, changing the connection limit, etc.
+
+#### Syntax
+```bash
+ALTER DATABASE name ACTION;
+```
+
+**Example:**
+Creating an example database practice_db to practice database commands.
+```bash
+postgres=# CREATE DATABASE practice_db;
+CREATE DATABASE
+postgres=# \l
+                              List of databases
+    Name     |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-------------+----------+----------+---------+-------+-----------------------
+ company_db  | postgres | UTF8     | en_IN   | en_IN | 
+ postgres    | postgres | UTF8     | en_IN   | en_IN | 
+ practice_db | postgres | UTF8     | en_IN   | en_IN | 
+ template0   | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+             |          |          |         |       | postgres=CTc/postgres
+ template1   | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+             |          |          |         |       | postgres=CTc/postgres
+(5 rows)
+```
+We cannot alter the database if we are connected to it.
+```bash
+practice_db=# ALTER DATABASE practice_db RENAME TO practice_new
+practice_db-# ;
+ERROR:  current database cannot be renamed
+```
+To alter the database, you must connect with other database first.
+```bash
+practice_db=# \c postgres
+You are now connected to database "postgres" as user "postgres".
+postgres=# ALTER DATABASE practice_db RENAME TO practice_new;
+ALTER DATABASE
+postgres=# \l
+                              List of databases
+     Name     |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+--------------+----------+----------+---------+-------+-----------------------
+ company_db   | postgres | UTF8     | en_IN   | en_IN | 
+ postgres     | postgres | UTF8     | en_IN   | en_IN | 
+ practice_new | postgres | UTF8     | en_IN   | en_IN | 
+ template0    | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+              |          |          |         |       | postgres=CTc/postgres
+ template1    | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+              |          |          |         |       | postgres=CTc/postgres
+(5 rows)
+```
+
+### Drop database
+It removes the catalog entries for the database and deletes the directory containing the data. It can only be executed by the database owner. This command cannot be executed while you or anyone else is connected to the target database (connect to postgres or any other database to issue this command).
+
+#### Syntax
+```bash
+DROP DATABASE [ IF EXISTS ] name
+```
+
+**Example:**
+```bash
+postgres=# DROP DATABASE practice_new;
+DROP DATABASE
+postgres=# \l
+                             List of databases
+    Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+------------+----------+----------+---------+-------+-----------------------
+ company_db | postgres | UTF8     | en_IN   | en_IN | 
+ postgres   | postgres | UTF8     | en_IN   | en_IN | 
+ template0  | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+            |          |          |         |       | postgres=CTc/postgres
+ template1  | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+            |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+```
+
+## Table commands
+### Create table  
  CREATE TABLE statement is used to create a new table in any of the given database.
 
  #### Syntax
@@ -186,7 +266,7 @@ company_db(# );
 CREATE TABLE
 ```
 
-## Inserting data into table
+### Inserting data into table
 INSERT INTO statement allows user to insert one or new rows into a table. One can insert a single row at a time or several rows as a result of a query.
 
 #### Syntax
@@ -207,7 +287,7 @@ INSERT 0 4
 company_db=# 
 ```
 
-## Selecting data from table
+### Selecting data from table
 SELECT statement is used to fetch the data from a database table that returns data in the form of result table. These result tables are called result-sets.
 
 #### Syntax
@@ -230,7 +310,7 @@ company_db=# SELECT * FROM departments;
              4 | Marketing
 (4 rows)
 ```
-## Filtering data from the table
+### Filtering data from the table
 We use WHERE clause to filter the data. WHERE clause is used to specify a condition while fetching the data from single table or joining with multiple tables.  
 If the given condition is satisfied, only then it returns specific value from the table. You can filter out rows that you do not want included in the result-set by using the WHERE clause.  
 The WHERE clause not only is used in SELECT statement, but it is also used in UPDATE, DELETE statement, etc., which we would examine in subsequent chapters.
@@ -261,7 +341,7 @@ company_db-# WHERE department_id > 2;
 (2 rows)
 ```
 
-## Updating data in the table
+### Updating data in the table
 UPDATE statement is used to modify or change the existing records in a table. You can use WHERE clause with UPDATE statement to update the selected rows. Otherwise, all the rows would be updated.
 
 #### Syntax
@@ -289,7 +369,7 @@ company_db=# SELECT * FROM departments;
 (4 rows)
 ```
 
-## Retrieving data in order
+### Retrieving data in order
 ORDER BY clause is used to sort the data in ascending or descending order, based on one or more columns.
 
 #### Syntax
@@ -313,7 +393,7 @@ company_db-# ORDER BY department_id;
 (4 rows)
 ```
 
-## Deleting data from table
+### Deleting data from table
 DELETE statement is used to delete the existing records from a table. You can use WHERE clause with DELETE statement to delete the selected rows. Otherwise, all the records would be deleted.
 
 #### Syntax
@@ -338,7 +418,7 @@ company_db=# SELECT * FROM departments;
 (3 rows)
 ```
 
-## Altering a table  
+### Altering a table  
 It is used to modify the structure of an existing table.  
 We use it to:  
 🔷 Add a column  
