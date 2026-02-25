@@ -641,3 +641,176 @@ company_db-# OFFSET 2;
            5 | Vikram     | 75000.00 |             2
 (3 rows)
 ```
+
+### Like Clause
+LIKE is used for pattern matching in text (string) columns.  
+It is used with WHERE.
+
+#### Syntax
+```bash
+SELECT column_name
+FROM table_name
+WHERE column_name LIKE pattern;
+```
+
+#### Wildcard Characters
+🔷 % → Represents any number of characters  
+🔷 _ → Represents exactly one character
+
+**Example:**  
+1️⃣ Names starting with 'A'  
+```bash
+company_db=# SELECT *
+FROM employees
+WHERE first_name LIKE 'A%';
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           3 | Arjun      | 51000.00 |             1
+           6 | Anita      | 53000.00 |             3
+(2 rows)
+```
+2️⃣ Names ending with 'a'
+```bash
+company_db=# SELECT * 
+company_db-# FROM employees
+company_db-# WHERE first_name LIKE '%a';
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           2 | Sneha      | 72000.00 |             2
+           4 | Meera      | 68000.00 |             3
+           6 | Anita      | 53000.00 |             3
+           8 | Divya      | 71000.00 |             2
+(4 rows)
+```
+3️⃣ Names containing 'an'
+```bash
+company_db=# SELECT*
+company_db-# FROM employees
+company_db-# WHERE first_name LIKE '%an%';
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           1 | Karan      | 48000.00 |             1
+           9 | Manish     | 59000.00 |             3
+(2 rows)
+```
+4️⃣ Exactly 5-letter names
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# WHERE first_name LIKE '_____';
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           1 | Karan      | 48000.00 |             1
+           2 | Sneha      | 72000.00 |             2
+           3 | Arjun      | 51000.00 |             1
+           4 | Meera      | 68000.00 |             3
+           6 | Anita      | 53000.00 |             3
+           7 | Rohit      | 62000.00 |             1
+           8 | Divya      | 71000.00 |             2
+(7 rows)
+```
+
+#### ⚠ Case Sensitivity in PostgreSQL
+LIKE is case-sensitive.  
+If you want case-insensitive search:  
+Use ILIKE.
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# WHERE first_name ILIKE 'a%';
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           3 | Arjun      | 51000.00 |             1
+           6 | Anita      | 53000.00 |             3
+(2 rows)
+```
+
+### AND/OR operator
+These are used in the WHERE clause to combine multiple conditions.
+
+### AND Operator
+**Definition:** Returns rows only if all conditions are true.
+
+#### Syntax
+```bash
+SELECT column_name
+FROM table_name
+WHERE condition1 AND condition2;
+```
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# WHERE department_id = 2 AND salary > 70000;
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           2 | Sneha      | 72000.00 |             2
+           5 | Vikram     | 75000.00 |             2
+           8 | Divya      | 71000.00 |             2
+(3 rows)
+```
+
+### OR Operator
+**Definition:** Returns rows if at least one condition is true.
+
+#### Syntax
+```bash
+SELECT column_name
+FROM table_name
+WHERE condition1 OR condition2;
+```
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# WHERE department_id = 1 OR department_id = 3;
+ employee_id | first_name |  salary  | department_id 
+-------------+------------+----------+---------------
+           1 | Karan      | 48000.00 |             1
+           3 | Arjun      | 51000.00 |             1
+           4 | Meera      | 68000.00 |             3
+           6 | Anita      | 53000.00 |             3
+           7 | Rohit      | 62000.00 |             1
+           9 | Manish     | 59000.00 |             3
+(6 rows)
+```
+
+### Drop table
+DROP TABLE is used to permanently delete a table from the database.  
+It removes:  
+🔷 Table structure  
+🔷 All data inside it  
+🔷 Constraints  
+🔷 Indexes  
+
+#### Syntax
+```bash 
+DROP TABLE table_name;
+```
+
+**Example:**
+Creating a dummy table to use DROP command.
+```bash
+company_db=# \dt
+            List of relations
+ Schema |    Name     | Type  |  Owner   
+--------+-------------+-------+----------
+ public | departments | table | postgres
+ public | employees   | table | postgres
+ public | test_table  | table | postgres
+(3 rows)
+
+company_db=# DROP TABLE test_table;
+DROP TABLE
+company_db=# \dt
+            List of relations
+ Schema |    Name     | Type  |  Owner   
+--------+-------------+-------+----------
+ public | departments | table | postgres
+ public | employees   | table | postgres
+(2 rows)
+```
