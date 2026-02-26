@@ -1028,3 +1028,29 @@ company_db-# ON e.manager_id = m.employee_id;
  Karan    | Frank
 (15 rows)
 ```
+
+## Constraints
+Constraints are rules applied on table columns to enforce data integrity. They prevent invalid data from being inserted.  
+Constraints could be column level or table level. Column level constraints are applied only to one column whereas table level constraints are applied to the whole table. Defining a data type for a column is a constraint in itself. For example, a column of type DATE constrains the column to valid dates.
+
+The following are commonly used constraints available in PostgreSQL.  
+**🔷 NOT NULL Constraint −** Ensures that a column cannot have NULL value.  
+**🔷 UNIQUE Constraint −** Ensures that all values in a column are different.  
+**🔷 PRIMARY Key −** Uniquely identifies each row/record in a database table.  
+**🔷 FOREIGN Key −** Constrains data based on columns in other tables.  
+**🔷 CHECK Constraint −** The CHECK constraint ensures that all values in a column satisfy certain conditions.
+
+**Example:**
+```bash
+company_db=# CREATE TABLE products(
+company_db(# product_id SERIAL PRIMARY KEY,
+company_db(# name VARCHAR(50) NOT NULL,
+company_db(# price NUMERIC(10,2) NOT NULL
+company_db(# );
+CREATE TABLE
+company_db=# INSERT INTO products(name)
+company_db-# VALUES
+company_db-# ('Chips');
+ERROR:  null value in column "price" violates not-null constraint
+DETAIL:  Failing row contains (1, Chips, null).
+```
