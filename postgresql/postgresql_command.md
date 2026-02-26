@@ -814,3 +814,217 @@ company_db=# \dt
  public | employees   | table | postgres
 (2 rows)
 ```
+
+### Truncate table command
+TRUNCATE is used to delete all rows from a table instantly.  
+It is faster than DELETE because:  
+🔷 It does not scan each row  
+🔷 It does not log individual row deletions  
+🔷 It resets storage immediately
+
+#### Syntax
+```bash
+TRUNCATE TABLE table_name;
+```
+
+**Example:**  
+Creating test_table to implement truncate.
+```bash
+company_db=# SELECT * FROM test_table;
+ id | name 
+----+------
+  1 | A
+  2 | B
+  3 | C
+(3 rows)
+
+company_db=# TRUNCATE TABLE test_table ;
+TRUNCATE TABLE
+company_db=# SELECT * FROM test_table;
+ id | name 
+----+------
+(0 rows)
+```
+
+## JOINS
+A JOIN is used to combine rows from two or more tables based on a related column.  
+Usually based on:  
+🔷 PRIMARY KEY  
+🔷 FOREIGN KEY  
+
+### Types of Joins
+🔷 INNER JOIN  
+🔷 LEFT JOIN  
+🔷 RIGHT JOIN  
+🔷 FULL JOIN  
+🔷 OUTER JOIN  
+🔷 SELF JOIN  
+
+#### 1️⃣ INNER JOIN
+Returns only matching rows from both tables.
+
+**Example:**
+```bash
+company_db=# SELECT e.name, e.salary, d.department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id;
+  name   |  salary  | department_name 
+---------+----------+-----------------
+ Alice   | 45000.00 | HR
+ Bob     | 75000.00 | IT
+ Charlie | 68000.00 | IT
+ David   | 52000.00 | Sales
+ Emma    | 49000.00 | HR
+ Frank   | 88000.00 | Finance
+ Grace   | 72000.00 | Marketing
+ Hannah  | 61000.00 | Operations
+ Ishaan  | 95000.00 | IT
+ Karan   | 53000.00 | Finance
+ Lavanya | 66000.00 | Marketing
+ Mohit   | 58000.00 | Operations
+ Nisha   | 62000.00 | HR
+(13 rows)
+```
+
+#### 2️⃣ LEFT JOIN (LEFT OUTER JOIN)
+Returns:  
+🔷 All rows from LEFT table  
+🔷 Matching rows from right  
+🔷 If no match → NULL
+
+**Example:**
+```bash
+company_db=# SELECT e.name, d.department_name
+company_db-# FROM employees e
+company_db-# LEFT JOIN departments d
+company_db-# ON e.department_id = d.department_id;
+  name   | department_name 
+---------+-----------------
+ Alice   | HR
+ Bob     | IT
+ Charlie | IT
+ David   | Sales
+ Emma    | HR
+ Frank   | Finance
+ Grace   | Marketing
+ Hannah  | Operations
+ Ishaan  | IT
+ Jiya    | 
+ Karan   | Finance
+ Lavanya | Marketing
+ Mohit   | Operations
+ Nisha   | HR
+ Om      | 
+(15 rows)
+```
+
+#### 3️⃣ RIGHT JOIN (RIGHT OUTER JOIN)
+Returns:  
+🔷 All rows from RIGHT table  
+🔷 Matching rows from left  
+🔷 If no match → NULL
+
+**Example:**
+```bash
+company_db=# SELECT e.name, d.department_name
+company_db-# FROM employees e
+company_db-# RIGHT JOIN departments d
+company_db-# ON e.department_id = d.department_id;
+  name   | department_name 
+---------+-----------------
+ Alice   | HR
+ Bob     | IT
+ Charlie | IT
+ David   | Sales
+ Emma    | HR
+ Frank   | Finance
+ Grace   | Marketing
+ Hannah  | Operations
+ Ishaan  | IT
+ Karan   | Finance
+ Lavanya | Marketing
+ Mohit   | Operations
+ Nisha   | HR
+(13 rows)
+```
+
+#### 4️⃣ FULL JOIN (FULL OUTER JOIN)
+Returns:  
+🔷 All rows from LEFT  
+🔷 All rows from RIGHT  
+🔷 Matched where possible  
+
+**Example:**
+```bash
+company_db=# SELECT e.name, d.department_name
+FROM departments d
+FULL JOIN employees e  
+ON e.department_id = d.department_id;
+  name   | department_name 
+---------+-----------------
+ Alice   | HR
+ Bob     | IT
+ Charlie | IT
+ David   | Sales
+ Emma    | HR
+ Frank   | Finance
+ Grace   | Marketing
+ Hannah  | Operations
+ Ishaan  | IT
+ Jiya    | 
+ Karan   | Finance
+ Lavanya | Marketing
+ Mohit   | Operations
+ Nisha   | HR
+ Om      | 
+(15 rows)
+```
+
+#### 5️⃣ OUTER JOIN
+Important:  
+🔷 LEFT JOIN = LEFT OUTER JOIN  
+🔷 RIGHT JOIN = RIGHT OUTER JOIN  
+🔷 FULL JOIN = FULL OUTER JOIN  
+The word OUTER is optional
+
+**Example:**
+```bash
+LEFT OUTER JOIN
+```
+Same as
+```bash
+LEFT JOIN
+```
+
+#### 6️⃣ SELF JOIN
+Self join means:  
+👉 A table joins with itself.
+
+**Example:**
+Adding manager column to employees to implement self join.
+```bash
+company_db=# SELECT e.name AS employee,
+company_db-# m.name AS manager
+company_db-# FROM employees e
+company_db-# LEFT JOIN employees m
+company_db-# ON e.manager_id = m.employee_id;
+ employee | manager 
+----------+---------
+ Alice    | 
+ Emma     | 
+ Frank    | 
+ Grace    | 
+ Hannah   | 
+ Ishaan   | 
+ Jiya     | 
+ Lavanya  | 
+ Mohit    | 
+ Nisha    | 
+ Om       | 
+ Bob      | Alice
+ Charlie  | Alice
+ David    | Bob
+ Karan    | Frank
+(15 rows)
+```
