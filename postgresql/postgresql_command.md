@@ -1054,3 +1054,281 @@ company_db-# ('Chips');
 ERROR:  null value in column "price" violates not-null constraint
 DETAIL:  Failing row contains (1, Chips, null).
 ```
+## Alias 
+You can rename a table or a column temporarily by giving another name, which is known as ALIAS.
+
+#### Syntax
+The basic syntax of table alias is as follows −
+```bash
+SELECT column1, column2....
+FROM table_name AS alias_name
+WHERE [condition];
+```
+The basic syntax of column alias is as follows −
+```bash
+SELECT column_name AS alias_name
+FROM table_name
+WHERE [condition];
+```
+
+## Functions
+PostgreSQL built-in functions, also called as Aggregate functions, are used for performing processing on string or numeric data.
+
+The following is the list of all general-purpose PostgreSQL built-in functions −  
+🔷 PostgreSQL COUNT Function − The PostgreSQL COUNT aggregate function is used to count the number of rows in a database table.  
+```bash
+company_db=# SELECT COUNT(*) FROM employees;
+ count 
+-------
+    15
+(1 row)
+```
+🔷 PostgreSQL MAX Function − The PostgreSQL MAX aggregate function allows us to select the highest (maximum) value for a certain column.  
+```bash
+company_db=# SELECT MAX(salary) FROM employees;
+   max    
+----------
+ 95000.00
+(1 row)
+```
+🔷 PostgreSQL MIN Function − The PostgreSQL MIN aggregate function allows us to select the lowest (minimum) value for a certain column.  
+```bash
+company_db=# SELECT MIN(salary) FROM employees;
+   min    
+----------
+ 45000.00
+(1 row)
+```
+🔷 PostgreSQL AVG Function − The PostgreSQL AVG aggregate function selects the average value for certain table column.  
+```bash
+company_db=# SELECT AVG(salary) FROM employees;
+        avg         
+--------------------
+ 64133.333333333333
+(1 row)
+```
+🔷 PostgreSQL SUM Function − The PostgreSQL SUM aggregate function allows selecting the total for a numeric column.
+```bash
+company_db=# SELECT SUM(salary) FROM employees;
+    sum    
+-----------
+ 962000.00
+(1 row)
+```
+
+## Operators
+### 1️⃣ UNION
+Combines results of two queries.  
+🔷 Removes duplicates  
+🔷 Columns must match in number and type
+
+#### Syntax
+```bash
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+
+UNION
+
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+```
+
+**Example:**
+```bash
+company_db=# SELECT name FROM employees
+company_db-# UNION 
+company_db-# SELECT department_name FROM departments;
+    name    
+------------
+ Finance
+ Hannah
+ Ishaan
+ David
+ Karan
+ Nisha
+ Marketing
+ Operations
+ Om
+ Frank
+ Charlie
+ Alice
+ Grace
+ Mohit
+ Bob
+ Sales
+ HR
+ IT
+ Jiya
+ Lavanya
+ Emma
+(21 rows)
+```
+
+**UNION ALL-**
+Does NOT remove duplicates (faster)
+
+### 2️⃣ EXCEPT
+Returns rows from first query that are NOT in second query.
+
+#### Syntax
+```bash
+SELECT column1, column2, ... 
+FROM table1
+EXCEPT
+SELECT column1, column2, ...
+FROM table2;
+```
+
+**Example:**
+```bash
+company_db=# SELECT department_id FROM departments
+EXCEPT
+SELECT department_id FROM employees;
+ department_id 
+---------------
+             7
+(1 row)
+```
+**EXCEPT ALL-**
+Same idea, but keeps duplicates.
+
+### 3️⃣ INTERSECT
+Returns common rows in both queries.
+
+#### Syntax
+```bash
+SELECT column1, column2, ... 
+FROM table1
+INTERSECT
+SELECT column1, column2, ...
+FROM table2;
+```
+
+**Example:**
+```bash
+company_db=# SELECT department_id FROM employees
+company_db-# INTERSECT 
+company_db-# SELECT department_id FROM departments;
+ department_id 
+---------------
+             3
+             5
+             4
+             6
+             2
+             1
+(6 rows)
+```
+
+### 4️⃣ EXISTS
+Returns TRUE if subquery returns at least one row.
+
+#### Syntax
+```bash
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS ( subquery );
+```
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM departments d
+company_db-# WHERE EXISTS (
+company_db(# SELECT 1
+company_db(# FROM employees e
+company_db(# WHERE e.department_id = d.department_id
+company_db(# );
+ department_id | department_name 
+---------------+-----------------
+             1 | HR
+             2 | IT
+             3 | Sales
+             4 | Finance
+             5 | Marketing
+             6 | Operations
+(6 rows)
+```
+
+### NOT EXISTS
+**Example:**
+```bash
+company_db=# SELECT *
+FROM departments d
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.department_id = d.department_id
+);
+ department_id | department_name 
+---------------+-----------------
+             7 | Legal
+(1 row)
+```
+
+### 5️⃣ ANY
+Means: compare with ANY value in subquery.
+
+#### Syntax
+```bash
+expression operator ANY (subquery);
+```
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# WHERE salary > ANY (
+company_db(# SELECT salary
+company_db(# FROM employees
+company_db(# WHERE department_id = 1
+company_db(# );
+ employee_id |  name   |  salary  | department_id | manager_id 
+-------------+---------+----------+---------------+------------
+           5 | Emma    | 49000.00 |             1 |           
+           6 | Frank   | 88000.00 |             4 |           
+           7 | Grace   | 72000.00 |             5 |           
+           8 | Hannah  | 61000.00 |             6 |           
+           9 | Ishaan  | 95000.00 |             2 |           
+          10 | Jiya    | 47000.00 |               |           
+          12 | Lavanya | 66000.00 |             5 |           
+          13 | Mohit   | 58000.00 |             6 |           
+          14 | Nisha   | 62000.00 |             1 |           
+          15 | Om      | 71000.00 |               |           
+           2 | Bob     | 75000.00 |             2 |          1
+           3 | Charlie | 68000.00 |             2 |          1
+           4 | David   | 52000.00 |             3 |          2
+          11 | Karan   | 53000.00 |             4 |          6
+(14 rows)
+```
+
+### 6️⃣ ALL
+Means: compare with ALL values in subquery.
+
+#### Syntax
+```bash
+expression operator ALL (array | subquery)
+```
+
+**Example:**
+```bash
+company_db=# SELECT *
+company_db-# FROM employees
+company_db-# WHERE salary > ALL(
+company_db(# SELECT salary
+company_db(# FROM employees
+company_db(# WHERE department_id = 1
+company_db(# );
+ employee_id |  name   |  salary  | department_id | manager_id 
+-------------+---------+----------+---------------+------------
+           6 | Frank   | 88000.00 |             4 |           
+           7 | Grace   | 72000.00 |             5 |           
+           9 | Ishaan  | 95000.00 |             2 |           
+          12 | Lavanya | 66000.00 |             5 |           
+          15 | Om      | 71000.00 |               |           
+           2 | Bob     | 75000.00 |             2 |          1
+           3 | Charlie | 68000.00 |             2 |          1
+(7 rows)
+```
