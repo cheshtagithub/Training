@@ -218,7 +218,7 @@ airline_db-# AND f.to_city = 'Chicago';
 ### g. Identify the routes that can be piloted by every pilot who makes more than $100,000.
 **🔗Code**
 ```bash
-airline_db=# SELECT f.flno
+airline_db=# SELECT DISTINCT f.from_city, f.to_city
 airline_db-# FROM Flights f
 airline_db-# WHERE NOT EXISTS (
 airline_db(# SELECT e.eid
@@ -235,48 +235,48 @@ airline_db(# );
 ```
 **Output**
 ```bash
- flno 
-------
-  201
-  202
-  203
-  204
-  205
-  206
-  207
-  208
-  209
-  210
-  211
-  212
-  213
-  214
-  215
-  216
-  217
-  218
-  219
-  220
-  221
-  222
-  223
-  224
-  225
-  226
-  227
-  228
-  229
-  230
-  231
-  232
-  233
-  234
-  235
-  236
-  237
-  238
-  239
-  240
+  from_city  |  to_city  
+-------------+-----------
+ Ahmedabad   | Bangalore
+ Bangalore   | Delhi
+ Bangalore   | Dubai
+ Bangalore   | Hyderabad
+ Bangalore   | Kolkata
+ Chennai     | Bangalore
+ Chennai     | Delhi
+ Chennai     | Mumbai
+ Chennai     | Singapore
+ Chicago     | New York
+ Delhi       | Ahmedabad
+ Delhi       | Bangalore
+ Delhi       | Bangkok
+ Delhi       | Chennai
+ Delhi       | Dubai
+ Delhi       | Jaipur
+ Delhi       | Kolkata
+ Delhi       | London
+ Delhi       | Mumbai
+ Delhi       | New York
+ Delhi       | Singapore
+ Delhi       | Sydney
+ Hyderabad   | Delhi
+ Hyderabad   | Mumbai
+ Hyderabad   | Singapore
+ Jaipur      | Mumbai
+ Kolkata     | Chennai
+ Kolkata     | Delhi
+ Kolkata     | Dubai
+ Los Angeles | Chicago
+ Los Angeles | Honolulu
+ Madison     | Chicago
+ Madison     | New York
+ Mumbai      | Chennai
+ Mumbai      | Delhi
+ Mumbai      | Dubai
+ Mumbai      | Kolkata
+ Mumbai      | London
+ Mumbai      | Paris
+ Mumbai      | Singapore
 (40 rows)
 ```
 ### h. Print the enames of pilots who can operate planes with cruisingrange greater than 3000 miles but are not certified on any Boeing aircraft.
@@ -428,7 +428,6 @@ airline_db=# SELECT e.ename
 airline_db-# FROM Employees e
 airline_db-# JOIN Certified c ON e.eid = c.eid
 airline_db-# JOIN Aircraft a ON c.aid = a.aid
-airline_db-# WHERE a.cruising_range > 1000
 airline_db-# GROUP BY e.eid, e.ename
 airline_db-# HAVING COUNT(*) >= 2
 airline_db-# AND NOT EXISTS (
