@@ -383,4 +383,121 @@ ecommerce_db-# JOIN products p ON oi.product_id = p.product_id;
        25 | Cricket Bat       |        1
 (30 rows)
 ```
-13. 
+13. Show supplier name and product name they supply
+```bash
+ecommerce_db=# select p.product_name,s.supplier_name
+ecommerce_db-# from products p
+ecommerce_db-# join product_suppliers ps on p.product_id = ps.product_id
+ecommerce_db-# join suppliers s on s.supplier_id = ps.supplier_id;
+   product_name    | supplier_name  
+-------------------+----------------
+ Laptop            | TechWorld
+ Mobile            | TechWorld
+ Headphones        | TechWorld
+ T-Shirt           | FashionHub
+ Jeans             | FashionHub
+ SQL Book          | BookStore Ltd
+ Mixer Grinder     | HomeTech
+ Microwave         | HomeTech
+ Football          | SportsGear
+ Cricket Bat       | SportsGear
+ Face Cream        | BeautyCare
+ Perfume           | BeautyCare
+ Sofa              | FurniWorld
+ Dining Table      | FurniWorld
+ Teddy Bear        | ToyLand
+ Toy Car           | ToyLand
+ Tablet            | ElectroHub
+ Smart Watch       | ElectroHub
+ Jacket            | StyleMart
+ Sneakers          | StyleMart
+ Data Science Book | BookHeaven
+ Python Book       | BookHeaven
+ Air Fryer         | KitchenPro
+ Vacuum Cleaner    | KitchenPro
+ Basketball        | ActiveSports
+ Headphones        | TechSupply
+ T-Shirt           | FashionZone
+ SQL Book          | ReadMore
+ Mixer Grinder     | HomeEssentials
+ Microwave         | SmartGadgets
+(30 rows)
+```
+14. Show customer name and product they purchased
+```bash
+ecommerce_db=# select c.name,p.product_name
+ecommerce_db-# from customers c
+ecommerce_db-# join orders o on c.customer_id = o.customer_id
+ecommerce_db-# join order_items oi on o.order_id = oi.order_id
+ecommerce_db-# join products p on p.product_id = oi.product_id;
+  name  |   product_name    
+--------+-------------------
+ Rahul  | Laptop
+ Rahul  | Headphones
+ Anita  | Mobile
+ Anita  | T-Shirt
+ Vikas  | SQL Book
+ Vikas  | Jeans
+ Priya  | Mixer Grinder
+ Amit   | Microwave
+ Rahul  | Mobile
+ Rahul  | SQL Book
+ Karan  | Football
+ Karan  | Headphones
+ Sneha  | Cricket Bat
+ Rohit  | Face Cream
+ Pooja  | Perfume
+ Arjun  | Sofa
+ Simran | Teddy Bear
+ Manish | Toy Car
+ Divya  | Tablet
+ Nikhil | Smart Watch
+ Megha  | Jacket
+ Yash   | Sneakers
+ Sonal  | Data Science Book
+ Varun  | Python Book
+ Riya   | Air Fryer
+ Deepak | Vacuum Cleaner
+ Tina   | Basketball
+ Harsh  | Dining Table
+ Kavya  | Football
+ Aditya | Cricket Bat
+(30 rows)
+```
+15. Show order_id, customer_name, and total quantity of items in that order
+```bash
+ecommerce_db=# select oi.order_id,c.name,SUM(oi.quantity) AS total_quantity
+ecommerce_db-# from customers c
+ecommerce_db-# join orders o on c.customer_id=o.customer_id
+ecommerce_db-# join order_items oi on o.order_id=oi.order_id
+ecommerce_db-# GROUP BY oi.order_id, c.name
+ecommerce_db-# ORDER BY oi.order_id;
+ order_id |  name  | total_quantity 
+----------+--------+----------------
+        1 | Rahul  |              3
+        2 | Anita  |              4
+        3 | Vikas  |              3
+        4 | Priya  |              1
+        5 | Amit   |              1
+        6 | Rahul  |              2
+        7 | Karan  |              3
+        8 | Sneha  |              1
+        9 | Rohit  |              3
+       10 | Pooja  |              1
+       11 | Arjun  |              1
+       12 | Simran |              2
+       13 | Manish |              1
+       14 | Divya  |              1
+       15 | Nikhil |              1
+       16 | Megha  |              2
+       17 | Yash   |              1
+       18 | Sonal  |              1
+       19 | Varun  |              2
+       20 | Riya   |              1
+       21 | Deepak |              1
+       22 | Tina   |              2
+       23 | Harsh  |              1
+       24 | Kavya  |              1
+       25 | Aditya |              1
+(25 rows)
+```
