@@ -501,3 +501,215 @@ ecommerce_db-# ORDER BY oi.order_id;
        25 | Aditya |              1
 (25 rows)
 ```
+16. Show product name and supplier city.
+```bash
+ecommerce_db=# select p.product_name,s.city
+ecommerce_db-# from products p
+ecommerce_db-# join product_suppliers ps on p.product_id=ps.product_id
+ecommerce_db-# join suppliers s on s.supplier_id =ps.supplier_id;
+   product_name    |   city    
+-------------------+-----------
+ Laptop            | Delhi
+ Mobile            | Delhi
+ Headphones        | Delhi
+ T-Shirt           | Mumbai
+ Jeans             | Mumbai
+ SQL Book          | Pune
+ Mixer Grinder     | Bangalore
+ Microwave         | Bangalore
+ Football          | Delhi
+ Cricket Bat       | Delhi
+ Face Cream        | Mumbai
+ Perfume           | Mumbai
+ Sofa              | Bangalore
+ Dining Table      | Bangalore
+ Teddy Bear        | Pune
+ Toy Car           | Pune
+ Tablet            | Delhi
+ Smart Watch       | Delhi
+ Jacket            | Mumbai
+ Sneakers          | Mumbai
+ Data Science Book | Kolkata
+ Python Book       | Kolkata
+ Air Fryer         | Hyderabad
+ Vacuum Cleaner    | Hyderabad
+ Basketball        | Delhi
+ Headphones        | Delhi
+ T-Shirt           | Mumbai
+ SQL Book          | Kolkata
+ Mixer Grinder     | Hyderabad
+ Microwave         | Bangalore
+(30 rows)
+```
+17. Count total number of customers in each city.
+```bash
+ecommerce_db=# select c.city,count(*) as total_customer
+ecommerce_db-# from customers c
+ecommerce_db-# group by c.city;
+   city    | total_customer 
+-----------+----------------
+ Mumbai    |              4
+ Pune      |              4
+ Delhi     |              5
+ Chennai   |              3
+ Hyderabad |              4
+ Bangalore |              4
+ Kolkata   |              1
+(7 rows)
+```
+18. Find total number of products in each category.
+```bash
+ecommerce_db=# select c.category_name,count(*) as total_products 
+ecommerce_db-# from categories c
+ecommerce_db-# join products p on c.category_id=p.category_id
+ecommerce_db-# group by c.category_name;
+  category_name  | total_products 
+-----------------+----------------
+ Furniture       |              2
+ Sports          |              3
+ Home Appliances |              4
+ Electronics     |              5
+ Toys            |              2
+ Clothing        |              4
+ Books           |              3
+ Beauty          |              2
+(8 rows)
+```
+19. Find average product price for each category.
+```bash
+ecommerce_db=# select c.category_name,avg(p.price)
+ecommerce_db-# from categories c
+ecommerce_db-# join products p on c.category_id=p.category_id
+ecommerce_db-# group by c.category_name;
+  category_name  |       avg_price          
+-----------------+-----------------------
+ Furniture       |    21500.000000000000
+ Sports          | 1666.6666666666666667
+ Home Appliances | 6875.0000000000000000
+ Electronics     |    23400.000000000000
+ Toys            |  800.0000000000000000
+ Clothing        | 2200.0000000000000000
+ Books           |  650.0000000000000000
+ Beauty          | 1050.0000000000000000
+(8 rows)
+```
+20. Find total revenue generated from each product.
+```bash
+ecommerce_db=# select p.product_name,sum(p.price*oi.quantity) as total_revenue
+ecommerce_db-# from products p
+ecommerce_db-# left join order_items oi
+ecommerce_db-# on p.product_id=oi.product_id
+ecommerce_db-# group by p.product_name;
+   product_name    | total_revenue 
+-------------------+---------------
+ Toy Car           |           900
+ Face Cream        |          1800
+ Basketball        |          2600
+ Mobile            |         60000
+ Perfume           |          1500
+ T-Shirt           |          2400
+ Jeans             |          1500
+ Teddy Bear        |          1400
+ Tablet            |         20000
+ Cricket Bat       |          5000
+ Dining Table      |         18000
+ Vacuum Cleaner    |          9000
+ Mixer Grinder     |          3500
+ SQL Book          |          1500
+ Air Fryer         |          7000
+ Football          |          3600
+ Python Book       |          1300
+ Laptop            |         60000
+ Data Science Book |           800
+ Sofa              |         25000
+ Smart Watch       |          5000
+ Microwave         |          8000
+ Jacket            |          6000
+ Sneakers          |          3500
+ Headphones        |          6000
+(25 rows)
+```
+21. Find total number of orders placed by each customer.
+```bash
+ecommerce_db=# select c.name,count(*) as total_orders
+ecommerce_db-# from customers c
+ecommerce_db-# join orders o on c.customer_id=o.customer_id
+ecommerce_db-# group by c.name,c.customer_id;
+  name  | total_orders 
+--------+--------------
+ Tina   |            1
+ Arjun  |            1
+ Rohit  |            1
+ Nikhil |            1
+ Varun  |            1
+ Deepak |            1
+ Vikas  |            1
+ Yash   |            1
+ Amit   |            1
+ Priya  |            1
+ Pooja  |            1
+ Divya  |            1
+ Manish |            1
+ Anita  |            1
+ Megha  |            1
+ Karan  |            1
+ Simran |            1
+ Kavya  |            1
+ Aditya |            1
+ Riya   |            1
+ Rahul  |            2
+ Sonal  |            1
+ Harsh  |            1
+ Sneha  |            1
+(24 rows)
+```
+22. Find total payment amount received by each payment method.
+```bash
+ ecommerce_db=# select p.payment_method,sum(amount) as total_amount
+ecommerce_db-# from payments p
+ecommerce_db-# group by p.payment_method;
+ payment_method | total_amount 
+----------------+--------------
+ Net Banking    |        42000
+ UPI            |       143600
+ Debit Card     |        24000
+ Credit Card    |        43700
+(4 rows)
+```
+23. Show customers who placed more than 1 order.
+```bash
+ecommerce_db=# select c.customer_id,c.name from customers c
+ecommerce_db-# join orders o
+ecommerce_db-# on c.customer_id=o.customer_id
+ecommerce_db-# group by c.customer_id,c.name
+ecommerce_db-# having count(o.order_id)>1;
+ customer_id | name  
+-------------+-------
+           1 | Rahul
+(1 row)
+```
+24. Find products ordered more than 2 times.
+```bash
+ecommerce_db=# select p.product_id,p.product_name from products p
+ecommerce_db-# join order_items oi on p.product_id=oi.product_id
+ecommerce_db-# group by p.product_id,p.product_name
+ecommerce_db-# having count(*)>2;
+ product_id | product_name 
+------------+--------------
+(0 rows)
+```
+25. Find cities where more than 3 customers live.
+```bash
+ecommerce_db=# select c.city,count(*) as total_customers
+ecommerce_db-# from customers c
+ecommerce_db-# group by c.city
+ecommerce_db-# having count(*)>3;
+   city    | total_customers 
+-----------+-----------------
+ Mumbai    |               4
+ Pune      |               4
+ Delhi     |               5
+ Hyderabad |               4
+ Bangalore |               4
+(5 rows)
+```
