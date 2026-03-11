@@ -35,3 +35,12 @@ Before React, front-end development struggled with:
 **Tight Coupling in Frameworks:** Frameworks like Angular introduced complex two-way data binding that made code harder to manage.  
 React solved these issues with a modern and modular approach.
 
+## Make react program 
+Run the following command in the terminal:  
+```bash
+cheshta@cheshta-Latitude-E7470:~/Desktop/Training/reactjs$ npm create vite@latest my-react-app
+```
+To run the code , run following command
+```bash 
+npm run dev
+```
