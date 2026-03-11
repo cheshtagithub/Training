@@ -22,7 +22,16 @@ Example: number, string, boolean,etc.
 Example: object,array, function,etc.
 
 ```bash
-In simple words, aisi koi bhi value jise copy krne pr real copy nhi hota, balki us main value ka reference pass ho jata hai, use hm reference value kehte hai, or reference value ko direct copy nhi krte.or jis value ko copy krne pr real copy ho jaye vo primitive value hoti hai.
+In simple words, aisi koi bhi value jise copy krne par real copy nhi hota, balki us main value ka reference pass ho jata hai, use hm reference value kehte hai, or reference value ko direct copy nhi krte.or jis value ko copy krne pr real copy ho jaye vo primitive value hoti hai.
 ```
 
 # ReactJS
+React is a powerful JavaScript library for building fast, scalable front-end applications. Created by Facebook, it's known for its component-based structure, single-page applications (SPAs), and virtual DOM,enabling efficient UI updates and a seamless user experience.
+
+## Why Learn React?
+Before React, front-end development struggled with:  
+**Manual DOM Manipulation:** Traditional JavaScript directly modified the DOM, slowing down the performance.
+**Complex State Management:** Maintaining UI state became messy and hard to debug.
+**Tight Coupling in Frameworks:** Frameworks like Angular introduced complex two-way data binding that made code harder to manage.  
+React solved these issues with a modern and modular approach.
+
