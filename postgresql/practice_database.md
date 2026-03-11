@@ -713,3 +713,118 @@ ecommerce_db-# having count(*)>3;
  Bangalore |               4
 (5 rows)
 ```
+26. Find categories whose average product price is greater than 5000.
+```bash
+ecommerce_db=# SELECT c.category_name, AVG(p.price) AS avg_price
+FROM categories c
+JOIN products p 
+ON c.category_id = p.category_id
+GROUP BY c.category_id, c.category_name
+HAVING AVG(p.price) > 5000;
+  category_name  |       avg_price       
+-----------------+-----------------------
+ Home Appliances | 6875.0000000000000000
+ Furniture       |    21500.000000000000
+ Electronics     |    23400.000000000000
+(3 rows)
+```
+27. Find the most purchased product.
+```bash
+ecommerce_db=# SELECT p.product_name, SUM(oi.quantity) AS total_purchased
+FROM products p
+JOIN order_items oi 
+ON p.product_id = oi.product_id
+GROUP BY p.product_id, p.product_name
+ORDER BY total_purchased DESC
+LIMIT 1;
+ product_name | total_purchased 
+--------------+-----------------
+ T-Shirt      |               3
+(1 row)
+```
+28. Find customers who never placed an order.
+```bash
+ecommerce_db=# SELECT c.customer_id, c.name
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;
+ customer_id | name 
+-------------+------
+           6 | Neha
+(1 row)
+```
+29. Find products that were never ordered.
+```bash
+ecommerce_db=# SELECT p.product_id, p.product_name
+FROM products p
+LEFT JOIN order_items oi
+ON p.product_id = oi.product_id
+WHERE oi.order_id IS NULL;
+ product_id | product_name 
+------------+--------------
+(0 rows)
+```
+30.  Find the customer who spent the most money.
+```bash
+ecommerce_db=# SELECT c.customer_id, c.name, SUM(p.price * oi.quantity) AS total_spent
+FROM customers c
+JOIN orders o 
+ON c.customer_id = o.customer_id
+JOIN order_items oi 
+ON o.order_id = oi.order_id
+JOIN products p 
+ON p.product_id = oi.product_id
+GROUP BY c.customer_id, c.name
+ORDER BY total_spent DESC
+LIMIT 1;
+ customer_id | name  | total_spent 
+-------------+-------+-------------
+           1 | Rahul |       94500
+(1 row)
+```
+31. Top 3 customers by spending
+```bash
+ecommerce_db=# SELECT c.customer_id, c.name, SUM(p.price * oi.quantity) AS total_spent
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON p.product_id = oi.product_id
+GROUP BY c.customer_id, c.name
+ORDER BY total_spent DESC
+LIMIT 3;
+ customer_id | name  | total_spent 
+-------------+-------+-------------
+           1 | Rahul |       94500
+           2 | Anita |       32400
+          11 | Arjun |       25000
+(3 rows)
+```
+32. Most popular category
+```bash
+ecommerce_db=# SELECT c.category_name, SUM(oi.quantity) AS total_orders
+FROM categories c
+JOIN products p ON c.category_id = p.category_id
+JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY c.category_name
+ORDER BY total_orders DESC
+LIMIT 1;
+ category_name | total_orders 
+---------------+--------------
+ Electronics   |            8
+(1 row)
+```
+33. Supplier supplying highest number of products
+```bash
+ecommerce_db=# SELECT s.supplier_name, COUNT(ps.product_id) AS total_products
+FROM suppliers s
+JOIN product_suppliers ps 
+ON s.supplier_id = ps.supplier_id
+GROUP BY s.supplier_id, s.supplier_name
+ORDER BY total_products DESC
+LIMIT 1;
+ supplier_name | total_products 
+---------------+----------------
+ TechWorld     |              3
+(1 row)
+```
