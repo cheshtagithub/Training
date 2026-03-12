@@ -12,8 +12,32 @@
 // console.log(`Hello ${fname} and i am ${age} years old`);
 
 
-for(let i=1;i<=10;i++){
-    setTimeout(function(){
-        console.log(i);       
-    },i*1000)
-}
+// for(let i=1;i<=10;i++){
+//     setTimeout(function(){
+//         console.log(i);       
+//     },i*1000)
+// }
+
+// function greet(name, callback){
+//     console.log("Hello " + name);
+//     callback();
+// }
+
+// function sayBye(){
+//     console.log("Goodbye!");
+// }
+
+// greet("Cheshta", sayBye);
+
+// let numbers = [1,2,3,4];
+
+// let result = numbers.map(function(num){
+//     return num * 2;
+// });
+
+// console.log(result);
+let numbers = [1,2,3];
+
+let result = numbers.map(n => n * 3);
+
+console.log(result);

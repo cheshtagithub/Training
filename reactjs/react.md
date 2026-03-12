@@ -87,6 +87,70 @@ Output:
 10
 [Done] exited with code=0 in 10.269 seconds
 ```
+#### Callback Function in JavaScript
+A callback function is a function that is passed as an argument to another function and executed later.
+It allows functions to run after another function finishes or when an event occurs.
+**Syntax**
+```bash
+function mainFunction(callback){
+    // some work
+    callback();
+}
+```
+**Example**
+```bash
+function greet(name, callback){
+    console.log("Hello " + name);
+    callback();
+}
+
+function sayBye(){
+    console.log("Goodbye!");
+}
+
+greet("Cheshta", sayBye);
+Output:
+[Running] node "/home/cheshta/Desktop/Training/reactjs/javascript/practice.js"
+Hello Cheshta
+Goodbye!
+[Done] exited with code=0 in 0.307 seconds
+```
+#### map() Method in JavaScript
+map() is an array method used to create a new array by applying a function to each element of the original array.It does not modify the original array.
+**Syntax**
+```bash
+array.map(function(element, index, array){
+    return newValue;
+}); 
+```
+**Example**
+```bash
+let numbers = [1,2,3,4];
+
+let result = numbers.map(function(num){
+    return num * 2;
+});
+
+console.log(result);
+Output:
+[Running] node "/home/cheshta/Desktop/Training/reactjs/javascript/practice.js"
+[ 2, 4, 6, 8 ]
+
+[Done] exited with code=0 in 0.329 seconds
+```
+We can even use arrow function instead of writing function inside map like below
+```bash
+let numbers = [1,2,3];
+
+let result = numbers.map(n => n * 3);
+
+console.log(result);
+Output:
+[Running] node "/home/cheshta/Desktop/Training/reactjs/javascript/practice.js"
+[ 3, 6, 9 ]
+
+[Done] exited with code=0 in 0.319 seconds
+```
 
 # ReactJS
 React is a powerful JavaScript library for building fast, scalable front-end applications. Created by Facebook, it's known for its component-based structure, single-page applications (SPAs), and virtual DOM,enabling efficient UI updates and a seamless user experience.
