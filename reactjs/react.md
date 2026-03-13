@@ -151,6 +151,40 @@ Output:
 
 [Done] exited with code=0 in 0.319 seconds
 ```
+## DOM (Document Object Model) in JavaScript
+The DOM (Document Object Model) is a programming interface that represents an HTML document as a tree structure of objects.
+It allows JavaScript to access, modify, add, or delete HTML elements dynamically.
+
+### Structure of DOM
+When a webpage loads, the browser converts HTML into a DOM tree.  
+**Example html:**
+```bash
+<html>
+  <body>
+    <h1>Hello</h1>
+    <p>Welcome</p>
+  </body>
+</html> 
+```
+**DOM Tree:**
+```bash
+Document
+ └── html
+      └── body
+           ├── h1
+           └── p
+```
+Each element is called a node.  
+### Accessing DOM Elements
+JavaScript can access elements using methods like:
+```bash
+document.getElementById()
+document.getElementsByClassName()
+document.getElementsByTagName()
+document.querySelector()
+document.querySelectorAll()
+```
+
 
 # ReactJS
 React is a powerful JavaScript library for building fast, scalable front-end applications. Created by Facebook, it's known for its component-based structure, single-page applications (SPAs), and virtual DOM,enabling efficient UI updates and a seamless user experience.

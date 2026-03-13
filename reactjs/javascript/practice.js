@@ -36,8 +36,8 @@
 // });
 
 // console.log(result);
-let numbers = [1,2,3];
+// let numbers = [1,2,3];
 
-let result = numbers.map(n => n * 3);
+// let result = numbers.map(n => n * 3);
 
-console.log(result);
+// console.log(result);
