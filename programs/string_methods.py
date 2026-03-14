@@ -224,3 +224,37 @@ print(p.isdigit())
 '''Output:
 True
 '''
+
+# isalnum()
+# Definition:
+# Returns True if string contains only letters and numbers.
+
+q = "abc123"
+print(q.isalnum())
+
+'''Output:
+True
+'''
+
+# isspace()
+# Definition:
+# Returns True if string contains only whitespace.
+
+r = "   "
+print(r.isspace())
+
+'''Output:
+True
+'''
+
+# swapcase()
+# Definition:
+# Converts lowercase letters to uppercase and vice versa.
+
+t = "HELLO world"
+print(t.swapcase())
+
+'''Output:
+hello WORLD
+'''
+
