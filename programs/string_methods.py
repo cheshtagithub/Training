@@ -258,7 +258,7 @@ print(t.swapcase())
 hello WORLD
 '''
 
-# 21. center()
+# center()
 # Definition:
 # Centers the string within a specified width.
 
@@ -291,3 +291,21 @@ print("Hello {}".format(name))
 Hello Cheshta
 '''
 
+# partition()
+# Definition: Splits string into three parts.
+
+w = "hello-world"
+print(w.partition("-"))
+
+'''Output:
+('hello', '-', 'world')
+'''
+
+# rfind()
+# Definition: Finds last occurrence.
+
+print("banana and chocolate".rfind("a"))
+
+'''Output:
+17
+'''
