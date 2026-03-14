@@ -72,3 +72,84 @@ print(arr)
 '''Output:
 [1, 2]
 '''
+
+# clear()
+# Definition:
+# Removes all elements from the list.
+
+arr = [1, 2, 3]
+arr.clear()
+print(arr)
+
+'''Output:
+[]
+'''
+
+# index()
+# Definition:
+# Returns the index of the first occurrence of a value.
+
+arr = [10, 20, 30]
+print(arr.index(20))
+
+'''Output:
+1
+'''
+
+# count()
+# Definition:
+# Counts occurrences of a value.
+
+arr = [1, 2, 2, 3, 2, 2, 2, 4]
+print(arr.count(2))
+
+'''Output:
+5
+'''
+
+# sort()
+# Definition:
+# Sorts the list in ascending order.
+
+arr = [4, 1, 3, 9, 6, 0, 1, 2]
+arr.sort()
+print(arr)
+
+'''Output:
+[0, 1, 1, 2, 3, 4, 6, 9]
+'''
+
+# reverse()
+# Definition:
+# Reverses the order of elements.
+
+arr = [1, 2, 3, 4, 5, 6, 7]
+arr.reverse()
+print(arr)
+
+'''Output:
+[7, 6, 5, 4, 3, 2, 1]
+'''
+
+# copy()
+# Definition:
+# Creates a shallow copy of the list.
+
+arr = [1, 2, 3]
+new_arr = arr.copy()
+print(new_arr)
+
+'''Output:
+[1, 2, 3]
+'''
+
+# len() (built-in but commonly used)
+# Definition:
+# Returns number of elements in list.
+
+arr = [1, 2, 3, 9, 0, 2, 8]
+print(len(arr))
+
+'''Output:
+7
+'''
