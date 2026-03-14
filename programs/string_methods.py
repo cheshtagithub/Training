@@ -36,15 +36,6 @@ print(b.count("a"))
 '''
 
 
-# endswith()
-# Definition: Checks if string ends with given suffix.
-
-c = "Hello , how are you"
-print(c.endswith("ou"))
-'''
-Output: True
-'''
-
 # upper()
 # Definition:
 # Converts all characters of a string to uppercase.
@@ -96,9 +87,140 @@ Python Programming Language
 # Use:
 # Cleaning user input.
 
-s = "        -hello-          "
-print(s.strip())
+g = "        -hello-          "
+print(g.strip())
 
 '''Output:
 -hello-
+'''
+
+# lstrip()
+# Definition:
+# Removes spaces from the left side of a string.
+
+h = "   hello"
+print(h.lstrip())
+
+'''Output:
+hello
+'''
+
+# rstrip()
+# Definition:
+# Removes spaces from the right side of a string.
+
+i = "world   "
+print(i.rstrip())
+
+'''Output:
+world
+'''
+
+# replace()
+# Definition:
+# Replaces a substring with another substring.
+
+# Use:
+# Modify or clean text.
+
+j = "I like Java"
+print(j.replace("Java", "Python"))
+
+'''Output:
+I like Python
+'''
+
+# split()
+# Definition:
+# Splits a string into a list.
+
+# Use:
+# Breaking text into words.
+
+k = "apple banana mango"
+print(k.split())
+
+'''Output:
+['apple', 'banana', 'mango']
+'''
+
+# join()
+# Definition:
+# Joins elements of a list into a string.
+
+# Use:
+# Combining words.
+
+words = ["Python", "is", "fun"]
+print(" ".join(words))
+
+'''Output:
+Python is fun
+'''
+
+# find()
+# Definition:
+# Returns the index of the first occurrence of a substring.
+
+# Use:
+# Searching text.
+
+l = "hello world"
+print(l.find("world"))
+
+'''Output:
+6'''
+
+# index()
+# Definition:
+# Same as find() but raises an error if substring is not found.
+
+m = "hello"
+print(m.index("e"))
+
+'''Output:
+1
+'''
+
+# startswith()
+# Definition:
+# Checks if a string starts with a given value.
+
+n = "python"
+print(n.startswith("py"))
+
+'''Output:
+True
+'''
+
+
+# endswith()
+# Definition: Checks if string ends with given suffix.
+
+c = "Hello , how are you"
+print(c.endswith("ou"))
+'''
+Output: True
+'''
+
+# isalpha()
+# Definition:
+# Returns True if all characters are alphabets.
+
+o = "hello"
+print(o.isalpha())
+
+'''Output:
+True
+'''
+
+# isdigit()
+# Definition:
+# Returns True if all characters are digits.
+
+p = "12345"
+print(p.isdigit())
+
+'''Output:
+True
 '''
