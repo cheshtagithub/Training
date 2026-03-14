@@ -258,3 +258,36 @@ print(t.swapcase())
 hello WORLD
 '''
 
+# 21. center()
+# Definition:
+# Centers the string within a specified width.
+
+u = "Python"
+print(u.center(20, "-"))
+
+'''Output:
+-------Python-------
+'''
+
+# zfill()
+# Definition:
+# Adds zeros at the beginning of a string.
+
+v = "42"
+print(v.zfill(5))
+
+'''Output:
+00042
+'''
+
+# format()
+# Definition:
+# Formats values into a string.
+
+name = "Cheshta"
+print("Hello {}".format(name))
+
+'''Output:
+Hello Cheshta
+'''
+
