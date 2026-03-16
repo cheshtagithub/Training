@@ -828,3 +828,27 @@ LIMIT 1;
  TechWorld     |              3
 (1 row)
 ```
+34. Create index on customer_id in orders.
+```bash
+ecommerce_db=# CREATE INDEX idx_orders_customer
+ON orders(customer_id);
+CREATE INDEX
+```
+35. Index on product price
+```bash
+ecommerce_db=# CREATE INDEX idx_products_price
+ON products(price);
+CREATE INDEX
+```
+36. Composite index
+```bash
+ecommerce_db=# CREATE INDEX idx_orders_customer_date
+ON orders(customer_id, order_date);
+CREATE INDEX
+```
+37. Index for JOIN
+```bash
+ecommerce_db=# CREATE INDEX idx_order_items_order
+ON order_items(order_id);
+CREATE INDEX
+```
