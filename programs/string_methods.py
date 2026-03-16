@@ -441,11 +441,82 @@ print("maketrans: ","apple".translate(table))
 bpple
 '''
 
-40. 
-41. 
-42. 
-43. 
-44. 
-45. 
-46. 
-47. 
+# 40. rindex()
+# Definition: Same as rfind but gives error if not found.
+
+s = "banana"
+print("rindex: ",s.rindex("a"))
+
+'''Output:
+5
+'''
+
+# 41. rjust()
+# Definition: Right aligns string.
+
+s = "hello"
+print("rjust: ",s.rjust(10))
+
+'''Output:
+     hello
+'''
+
+# 42. rpartition()
+# Definition: Splits string from right side.
+
+s = "hello-world-how-are-you"
+print("rpartition: ",s.rpartition("-"))
+
+'''Output:
+('hello-world-how-are', '-', 'you')
+'''
+
+# 43. rsplit()
+# Definition: Splits string from right.
+
+s = "a,b,c"
+print("rsplit: ",s.rsplit(",",1))
+
+'''Output:
+['a,b', 'c']
+'''
+
+# 44. splitlines()
+# Definition: Splits string at line breaks.
+
+s = "hello\nworld"
+print("splitlines: ",s.splitlines())
+
+'''Output:
+['hello', 'world']
+'''
+
+# 45. translate()
+# Definition: Replaces characters using translation table.
+
+table = str.maketrans("a","b")
+print("translate: ","banana".translate(table))
+
+'''Output:
+bbnbnb
+'''
+
+# 46. removeprefix()
+# Definition: Removes specified prefix.
+
+s = "unhappy"
+print("removeprefix: ",s.removeprefix("un"))
+
+'''Output:
+happy
+'''
+
+# 47. removesuffix()
+# Definition: Removes specified suffix.
+
+s = "file.txt"
+print("removesuffix: ",s.removesuffix(".txt"))
+
+'''Output:
+file
+'''
