@@ -1,4 +1,4 @@
-# append()
+#1. append()
 # Definition:
 # Adds an element to the end of the list.
 
@@ -7,13 +7,13 @@
 
 arr = [1, 2, 3]
 arr.append(4)
-print(arr)
+print("append: ",arr)
 
 '''Output:
 [1, 2, 3, 4]
 '''
 
-# extend()
+#2. extend()
 # Definition:
 # Adds elements from another list to the end.
 
@@ -22,13 +22,13 @@ print(arr)
 
 arr = [1, 2, 3, 4]
 arr.extend([3, 4])
-print(arr)
+print("extend: ",arr)
 
 '''Output:
 [1, 2, 3, 4, 3, 4]
 '''
 
-# insert()
+#3. insert()
 # Definition:
 # Adds an element at a specific index.
 
@@ -37,13 +37,13 @@ print(arr)
 
 arr = [1, 2, 4, 5, 6, 7]
 arr.insert(2, 3)
-print(arr)
+print("insert: ",arr)
 
 '''Output:
 [1, 2, 3, 4, 5, 6, 7]
 '''
 
-# remove()
+#4. remove()
 # Definition:
 # Removes the first occurrence of a value.
 
@@ -52,13 +52,13 @@ print(arr)
 
 arr = [1, 2, 2, 3, 2]
 arr.remove(2)
-print(arr)
+print("remove: ",arr)
 
 '''Output:
 [1, 2, 3, 2]
 '''
 
-# pop()
+#5. pop()
 # Definition:
 # Removes element at a given index and returns it.
 
@@ -67,88 +67,88 @@ print(arr)
 
 arr = [1, 2, 3]
 arr.pop()
-print(arr)
+print("pop: ",arr)
 
 '''Output:
 [1, 2]
 '''
 
-# clear()
+#6. clear()
 # Definition:
 # Removes all elements from the list.
 
 arr = [1, 2, 3]
 arr.clear()
-print(arr)
+print("clear: ",arr)
 
 '''Output:
 []
 '''
 
-# index()
+#7. index()
 # Definition:
 # Returns the index of the first occurrence of a value.
 
 arr = [10, 20, 30]
-print(arr.index(20))
+print("index: ",arr.index(20))
 
 '''Output:
 1
 '''
 
-# count()
+#8. count()
 # Definition:
 # Counts occurrences of a value.
 
 arr = [1, 2, 2, 3, 2, 2, 2, 4]
-print(arr.count(2))
+print("count: ",arr.count(2))
 
 '''Output:
 5
 '''
 
-# sort()
+#9. sort()
 # Definition:
 # Sorts the list in ascending order.
 
 arr = [4, 1, 3, 9, 6, 0, 1, 2]
 arr.sort()
-print(arr)
+print("sort: ",arr)
 
 '''Output:
 [0, 1, 1, 2, 3, 4, 6, 9]
 '''
 
-# reverse()
+#10. reverse()
 # Definition:
 # Reverses the order of elements.
 
 arr = [1, 2, 3, 4, 5, 6, 7]
 arr.reverse()
-print(arr)
+print("reverse: ",arr)
 
 '''Output:
 [7, 6, 5, 4, 3, 2, 1]
 '''
 
-# copy()
+#11. copy()
 # Definition:
 # Creates a shallow copy of the list.
 
 arr = [1, 2, 3]
 new_arr = arr.copy()
-print(new_arr)
+print("copy: ",new_arr)
 
 '''Output:
 [1, 2, 3]
 '''
 
-# len() (built-in but commonly used)
+#12. len() (built-in but commonly used)
 # Definition:
 # Returns number of elements in list.
 
 arr = [1, 2, 3, 9, 0, 2, 8]
-print(len(arr))
+print("len: ",len(arr))
 
 '''Output:
 7
