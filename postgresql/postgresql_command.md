@@ -1332,3 +1332,64 @@ company_db(# );
            3 | Charlie | 68000.00 |             2 |          1
 (7 rows)
 ```
+
+## Indexes in PostgreSQL
+An index is a data structure that makes searching faster in a table.
+
+Without index: PostgreSQL scans every row  
+With index: PostgreSQL directly jumps to the needed rows  
+
+**Example:**
+```bash
+SELECT * 
+FROM orders
+WHERE customer_id = 10;
+```
+If table has 1 million rows, PostgreSQL will scan all rows.
+
+But if index exists:
+```bash
+CREATE INDEX idx_orders_customer_id
+ON orders(customer_id);
+```
+Now PostgreSQL can quickly locate rows.
+
+### TYPES OF INDEXES YOU SHOULD KNOW  
+1️⃣ B-Tree Index (Default)  
+Used for:  
+🔷 =  
+🔷 >  
+🔷 <  
+🔷 BETWEEN  
+🔷 ORDER BY
+
+**Example:**
+```bash
+CREATE INDEX idx_product_price
+ON products(price);
+```
+2️⃣ Composite Index (Multiple Columns)  
+Used when query filters multiple columns together.  
+
+**Example:**
+```bash
+CREATE INDEX idx_orders_customer_date
+ON orders(customer_id, order_date);
+```
+3️⃣ Unique Index  
+Ensures no duplicates exist.
+
+**Example:**
+```bash
+CREATE UNIQUE INDEX idx_email
+ON customers(email);
+```
+4️⃣ Partial Index  
+Index only part of table.
+
+**Example:**
+```bash
+CREATE INDEX idx_active_orders
+ON orders(order_id)
+WHERE status = 'completed';
+```
