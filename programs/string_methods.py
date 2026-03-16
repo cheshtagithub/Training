@@ -1,9 +1,9 @@
-#capitalize()
+#1. capitalize()
 # Definition: Converts the first character to uppercase and rest to lowercase.
 # Use: Formatting sentences.
 
 s = "python PROGRAMming"
-print(s.capitalize())
+print("capitalize: ",s.capitalize())
 
 '''Output:
 Python programming
@@ -11,14 +11,14 @@ Python programming
 
 
 
-#casefold()
+#2. casefold()
 #Definition: Converts string to lowercase for case-insensitive comparison.
 
 #Use: Useful for comparing strings regardless of case.
 
 
 a = "HELLOOO"
-print(a.casefold())
+print("casefold: ",a.casefold())
 
 '''
 Output:
@@ -26,17 +26,17 @@ hellooo
 '''
 
 
-# count(substring)
+#3. count(substring)
 # Definition: Counts occurrences of a substring.
  
 b = "banana and apple"
-print(b.count("a"))
+print("count: ",b.count("a"))
 
 ''' Output: 5
 '''
 
 
-# upper()
+#4. upper()
 # Definition:
 # Converts all characters of a string to uppercase.
 
@@ -44,14 +44,14 @@ print(b.count("a"))
 # Used when you want text in capital letter
 
 d = "hello world"
-print(d.upper())
+print("upper: ",d.upper())
 
 '''
 Output:
 HELLO WORLD
 '''
 
-# lower()
+#5. lower()
 # Definition:
 # Converts all characters of a string to lowercase.
 
@@ -59,13 +59,13 @@ HELLO WORLD
 # Used to normalize text for comparison.
 
 e = "HELLO"
-print(e.lower())
+print("lower: ",e.lower())
 
 '''Output:
 hello
 '''
 
-# title()
+#6. title()
 # Definition:
 # Converts the first letter of every word to uppercase.
 
@@ -73,14 +73,14 @@ hello
 # Used for headings or titles.
 
 f = "python programming language"
-print(f.title())
+print("title: ",f.title())
 
 '''Output
 Python Programming Language
 '''
 
 
-# strip()
+#7. strip()
 # Definition:
 # Removes spaces from the beginning and end of a string.
 
@@ -88,35 +88,35 @@ Python Programming Language
 # Cleaning user input.
 
 g = "        -hello-          "
-print(g.strip())
+print("strip: ",g.strip())
 
 '''Output:
 -hello-
 '''
 
-# lstrip()
+#8. lstrip()
 # Definition:
 # Removes spaces from the left side of a string.
 
 h = "   hello"
-print(h.lstrip())
+print("lstrip: ",h.lstrip())
 
 '''Output:
 hello
 '''
 
-# rstrip()
+#9. rstrip()
 # Definition:
 # Removes spaces from the right side of a string.
 
 i = "world   "
-print(i.rstrip())
+print("rstrip: ",i.rstrip())
 
 '''Output:
 world
 '''
 
-# replace()
+#10. replace()
 # Definition:
 # Replaces a substring with another substring.
 
@@ -124,13 +124,13 @@ world
 # Modify or clean text.
 
 j = "I like Java"
-print(j.replace("Java", "Python"))
+print("replace: ",j.replace("Java", "Python"))
 
 '''Output:
 I like Python
 '''
 
-# split()
+#11. split()
 # Definition:
 # Splits a string into a list.
 
@@ -138,13 +138,13 @@ I like Python
 # Breaking text into words.
 
 k = "apple banana mango"
-print(k.split())
+print("split: ",k.split())
 
 '''Output:
 ['apple', 'banana', 'mango']
 '''
 
-# join()
+#12. join()
 # Definition:
 # Joins elements of a list into a string.
 
@@ -152,13 +152,13 @@ print(k.split())
 # Combining words.
 
 words = ["Python", "is", "fun"]
-print(" ".join(words))
+print("join: "," ".join(words))
 
 '''Output:
 Python is fun
 '''
 
-# find()
+#13. find()
 # Definition:
 # Returns the index of the first occurrence of a substring.
 
@@ -166,146 +166,286 @@ Python is fun
 # Searching text.
 
 l = "hello world"
-print(l.find("world"))
+print("find: ",l.find("world"))
 
 '''Output:
 6'''
 
-# index()
+#14. index()
 # Definition:
 # Same as find() but raises an error if substring is not found.
 
 m = "hello"
-print(m.index("e"))
+print("index: ",m.index("e"))
 
 '''Output:
 1
 '''
 
-# startswith()
+#15. startswith()
 # Definition:
 # Checks if a string starts with a given value.
 
 n = "python"
-print(n.startswith("py"))
+print("startswith: ",n.startswith("py"))
 
 '''Output:
 True
 '''
 
 
-# endswith()
+#16. endswith()
 # Definition: Checks if string ends with given suffix.
 
 c = "Hello , how are you"
-print(c.endswith("ou"))
+print("endswith: ",c.endswith("ou"))
 '''
 Output: True
 '''
 
-# isalpha()
+#17. isalpha()
 # Definition:
 # Returns True if all characters are alphabets.
 
 o = "hello"
-print(o.isalpha())
+print("isalpha: ",o.isalpha())
 
 '''Output:
 True
 '''
 
-# isdigit()
+#18. isdigit()
 # Definition:
 # Returns True if all characters are digits.
 
 p = "12345"
-print(p.isdigit())
+print("isdigit: ",p.isdigit())
 
 '''Output:
 True
 '''
 
-# isalnum()
+#19. isalnum()
 # Definition:
 # Returns True if string contains only letters and numbers.
 
 q = "abc123"
-print(q.isalnum())
+print("isalnum: ",q.isalnum())
 
 '''Output:
 True
 '''
 
-# isspace()
+#20. isspace()
 # Definition:
 # Returns True if string contains only whitespace.
 
 r = "   "
-print(r.isspace())
+print("isspace: ",r.isspace())
 
 '''Output:
 True
 '''
 
-# swapcase()
+#21. swapcase()
 # Definition:
 # Converts lowercase letters to uppercase and vice versa.
 
 t = "HELLO world"
-print(t.swapcase())
+print("swapcase: ",t.swapcase())
 
 '''Output:
 hello WORLD
 '''
 
-# center()
+#22. center()
 # Definition:
 # Centers the string within a specified width.
 
 u = "Python"
-print(u.center(20, "-"))
+print("center: ",u.center(20, "-"))
 
 '''Output:
 -------Python-------
 '''
 
-# zfill()
+#23. zfill()
 # Definition:
 # Adds zeros at the beginning of a string.
 
 v = "42"
-print(v.zfill(5))
+#23. zfill()
+print("zfill: ",v.zfill(5))
 
 '''Output:
 00042
 '''
 
-# format()
+#24. format()
 # Definition:
 # Formats values into a string.
 
 name = "Cheshta"
-print("Hello {}".format(name))
+print("format: ","Hello {}".format(name))
 
 '''Output:
 Hello Cheshta
 '''
 
-# partition()
+#25. partition()
 # Definition: Splits string into three parts.
 
 w = "hello-world"
-print(w.partition("-"))
+print("partition: ",w.partition("-"))
 
 '''Output:
 ('hello', '-', 'world')
 '''
 
-# rfind()
-# Definition: Finds last occurrence.
-
-print("banana and chocolate".rfind("a"))
+#26. rfind()
+# Definition: Finds last occurrence of the word or letter.
+x = "banana and chocolate"
+print("rfind: ",x.rfind("a"))
 
 '''Output:
 17
 '''
+
+# 27. encode()
+# Definition: Converts string into bytes.
+
+s = "hello"
+print("encode: ",s.encode())
+
+'''Output:
+b'hello'
+'''
+
+# 28. expandtabs()
+# Definition: Replaces tab \t with spaces.
+
+s = "Hello\tWorld"
+print("expandtabs: ",s.expandtabs(4))
+
+'''Output:
+Hello   World
+'''
+
+# 29.format_map()
+# Definition: Formats string using dictionary.
+
+data = {"name": "John"}
+print("format_map: ","My name is {name}".format_map(data))
+
+'''Output:
+My name is John
+'''
+
+# 30. isascii()
+# Definition: Checks if characters are ASCII.
+
+s = "hello"
+print("isascii: ",s.isascii())
+
+'''Output:
+True
+'''
+
+# 31. isdecimal()
+# Definition: Checks if all characters are decimal numbers.
+
+s = "123"
+print("isdecimal: ",s.isdecimal())
+
+'''Output:
+True
+'''
+
+# 32. isidentifier()
+# Definition: Checks if string is valid Python identifier.
+
+s = "variable1"
+print("isidentifier: ",s.isidentifier())
+
+'''Output:
+True
+'''
+
+# 33. islower()
+# Definition: Checks if all letters are lowercase.
+
+s = "hello"
+print("islower: ",s.islower())
+
+'''Output:
+True
+'''
+
+# 34. isnumeric()
+# Definition: Checks if string contains numeric characters.
+
+s = "123"
+print("isnumeric: ",s.isnumeric())
+
+'''Output:
+True
+'''
+
+# 35. isprintable()
+# Definition: Checks if characters are printable.
+
+s = "hello"
+print("isprintable: ",s.isprintable())
+
+'''Output:
+True
+'''
+
+# 36. istitle()
+# Definition: Checks if string is in title case.
+
+s = "Hello World"
+print("istitle: ",s.istitle())
+
+'''Output:
+True
+'''
+
+# 37. isupper()
+# Definition: Checks if letters are uppercase.
+
+s = "HELLO"
+print("isupper: ",s.isupper())
+
+'''Output:
+True
+'''
+
+# 38. ljust()
+# Definition: Left aligns string.
+
+s = "hello"
+print("ljust: ",s.ljust(10))
+
+'''Output:
+'hello     '
+'''
+
+# 39. maketrans()
+# Definition: Creates translation table.
+
+table = str.maketrans("a","b")
+print("maketrans: ","apple".translate(table))
+
+'''Output: 
+bpple
+'''
+
+40. 
+41. 
+42. 
+43. 
+44. 
+45. 
+46. 
+47. 
