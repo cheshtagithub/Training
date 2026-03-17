@@ -939,5 +939,3 @@ WHERE oc.customer_id IS NULL;
          100 | Tanya
 (26 rows)
 ```
-41. Total number of orders per day
-```bash
