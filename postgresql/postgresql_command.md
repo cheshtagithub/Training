@@ -1393,3 +1393,223 @@ CREATE INDEX idx_active_orders
 ON orders(order_id)
 WHERE status = 'completed';
 ```
+
+## CTE
+CTE = Common Table Expression
+
+**Simple meaning:**
+Temporary result set (like a virtual table) that you can use inside a query.
+
+#### Syntax
+```bash
+WITH cte_name AS (
+    SELECT ...
+)
+SELECT * FROM cte_name;
+```
+
+**Example:**
+```bash
+ecommerce_db=# with customer_orders as(
+select customer_id, count(*) as total_orders
+from orders
+group by customer_id
+)
+select * 
+from customer_orders
+where total_orders>1;
+ customer_id | total_orders 
+-------------+--------------
+           1 |            2
+(1 row)
+```
+
+### 🔥Types of CTE usage
+1️⃣ Simple CTE (most common)  
+Example: Customers with more than 3 orders  
+```bash
+ecommerce_db=# WITH order_count AS (
+    SELECT customer_id, COUNT(*) AS total_orders
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT *
+FROM order_count
+WHERE total_orders >= 2;
+ customer_id | total_orders 
+-------------+--------------
+           1 |            2
+(1 row)
+```
+2️⃣ Multiple CTEs  
+CTE: Total Spending per Customer  
+**Example:**
+```bash
+WITH order_payments AS (
+    SELECT o.order_id,
+           o.customer_id,
+           p.amount
+    FROM orders o
+    JOIN payments p
+    ON o.order_id = p.order_id
+),
+customer_spending AS (
+    SELECT customer_id,
+           SUM(amount) AS total_spent
+    FROM order_payments
+    GROUP BY customer_id
+)
+SELECT c.name,
+       cs.total_spent
+FROM customer_spending cs
+JOIN customers c
+ON cs.customer_id = c.customer_id
+ORDER BY total_spent DESC;
+   name    | total_spent 
+-----------+-------------
+ Rahul     |       94500
+ Umesh     |       45000
+ Anita     |       32400
+ Raj       |       30000
+ Arjun     |       25000
+ Shreya    |       22000
+ Monika    |       22000
+ Muskan    |       22000
+ Divya     |       20000
+ Harsh     |       18000
+ Ayesha    |       15500
+ Rakesh    |       11000
+ Sanya     |        9000
+ Deepak    |        9000
+ Amit      |        8000
+ Pallavi   |        7500
+ Abhishek  |        7500
+ Riya      |        7000
+ Nitin     |        6500
+ Megha     |        6000
+ Bhavna    |        5200
+ Nikhil    |        5000
+ Reena     |        3500
+ Priya     |        3500
+ Yash      |        3500
+ Ankit     |        3500
+ Vivek     |        3200
+ Alok      |        3000
+ Tarun     |        3000
+ Tanvi     |        2800
+ Gopal     |        2800
+ Tina      |        2600
+ Gaurav    |        2500
+ Vishal    |        2500
+ Sneha     |        2500
+ Vikas     |        2500
+ Akash     |        2500
+ Aditya    |        2500
+ Karan     |        2400
+ Suresh    |        2200
+ Shruti    |        2200
+ Siddharth |        2000
+ Rohit     |        1800
+ Kriti     |        1800
+ Payal     |        1800
+ Komal     |        1800
+ Pooja     |        1500
+ Sameer    |        1500
+ Arnav     |        1500
+ Simran    |        1400
+ Varun     |        1300
+ Kavya     |        1200
+ Manav     |        1200
+ Chirag    |        1200
+ Nisha     |        1200
+ Sonia     |        1100
+ Isha      |        1100
+ Ritu      |         950
+ Heena     |         900
+ Manish    |         900
+ Rohan     |         900
+ Pankaj    |         900
+ Lakshya   |         900
+ Rajat     |         850
+ Sonal     |         800
+ Ajay      |         700
+ Preeti    |         600
+ Shivani   |         500
+ Sakshi    |         450
+ Aarti     |         400
+ Ravi      |         400
+ Mohit     |         400
+ Anjali    |         350
+ Kunal     |         250
+(74 rows)
+```
+CTE: Top Selling Product in Each Category 
+```bash
+WITH product_sales AS (
+    SELECT p.product_id,
+           p.product_name,
+           p.category_id,
+           SUM(oi.quantity) AS total_sold
+    FROM order_items oi
+    JOIN products p
+    ON oi.product_id = p.product_id
+    GROUP BY p.product_id, p.product_name, p.category_id
+),
+ranked_products AS (
+    SELECT *,
+           RANK() OVER (PARTITION BY category_id ORDER BY total_sold DESC) AS rnk
+    FROM product_sales
+)
+SELECT c.category_name,
+       rp.product_name,
+       rp.total_sold
+FROM ranked_products rp
+JOIN categories c
+ON rp.category_id = c.category_id
+WHERE rnk = 1;
+  category_name  |   product_name    | total_sold 
+-----------------+-------------------+------------
+ Electronics     | LED Monitor       |          3
+ Electronics     | Headphones        |          3
+ Clothing        | Formal Shirt      |          4
+ Clothing        | T-Shirt           |          4
+ Books           | Python Book       |          3
+ Books           | SQL Book          |          3
+ Home Appliances | Microwave         |          2
+ Home Appliances | Juicer            |          2
+ Home Appliances | Induction Cooktop |          2
+ Home Appliances | Electric Kettle   |          2
+ Home Appliances | Vacuum Cleaner    |          2
+ Sports          | Football          |          5
+ Beauty          | Body Lotion       |          3
+ Beauty          | Face Cream        |          3
+ Furniture       | Office Chair      |          3
+ Toys            | Teddy Bear        |          4
+(16 rows)
+```
+3️⃣ CTE with JOIN
+```bash
+ecommerce_db=# WITH total_sales AS (
+    SELECT product_id, SUM(quantity) AS total_sold
+    FROM order_items
+    GROUP BY product_id
+)
+SELECT p.product_name, t.total_sold
+FROM total_sales t
+JOIN products p
+ON t.product_id = p.product_id
+limit 10;
+ product_name  | total_sold 
+---------------+------------
+ Laptop        |          1
+ Mobile        |          2
+ Headphones    |          3
+ T-Shirt       |          4
+ Jeans         |          3
+ SQL Book      |          3
+ Mixer Grinder |          1
+ Microwave     |          2
+ Football      |          5
+ Cricket Bat   |          3
+(10 rows)
+```
