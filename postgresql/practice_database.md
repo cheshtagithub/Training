@@ -852,3 +852,92 @@ ecommerce_db=# CREATE INDEX idx_order_items_order
 ON order_items(order_id);
 CREATE INDEX
 ```
+38. Customers with more than 3 orders
+```bash
+ecommerce_db=# WITH customer_orders AS (
+    SELECT customer_id,
+           COUNT(order_id) AS total_orders
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT *
+FROM customer_orders
+WHERE total_orders > 3;
+ customer_id | total_orders 
+-------------+--------------
+(0 rows)
+```
+39. Total revenue of top ten customer
+```bash
+ecommerce_db=# WITH order_payments AS (
+    SELECT o.customer_id,
+           p.amount
+    FROM orders o
+    JOIN payments p
+    ON o.order_id = p.order_id
+),
+customer_revenue AS (
+    SELECT customer_id,
+           SUM(amount) AS total_revenue
+    FROM order_payments
+    GROUP BY customer_id
+)
+ORDER BY total_revenue DESC
+ecommerce_db-# limit 10;
+ customer_id | total_revenue 
+-------------+---------------
+           1 |         94500
+          69 |         45000
+           2 |         32400
+          57 |         30000
+          11 |         25000
+          56 |         22000
+          35 |         22000
+          45 |         22000
+          14 |         20000
+          23 |         18000
+(10 rows)
+```
+40. Customers who never placed an order
+```bash
+ecommerce_db=# WITH ordered_customers AS (
+    SELECT DISTINCT customer_id
+    FROM orders
+)
+SELECT c.customer_id, c.name
+FROM customers c
+LEFT JOIN ordered_customers oc
+ON c.customer_id = oc.customer_id
+WHERE oc.customer_id IS NULL;
+ customer_id |  name   
+-------------+---------
+           6 | Neha
+          76 | Jyoti
+          77 | Tushar
+          78 | Ansh
+          79 | Riddhi
+          80 | Dev
+          81 | Raman
+          82 | Seema
+          83 | Aman
+          84 | Kiran
+          85 | Puneet
+          86 | Surbhi
+          87 | Rakesh2
+          88 | Anamika
+          89 | Kabir
+          90 | Ruchi
+          91 | Ashish
+          92 | Meenal
+          93 | Pratik
+          94 | Diya
+          95 | Keshav
+          96 | Samar
+          97 | Rituja
+          98 | Varsha
+          99 | Anurag
+         100 | Tanya
+(26 rows)
+```
+41. Total number of orders per day
+```bash
