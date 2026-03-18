@@ -153,3 +153,86 @@ print("len: ",len(arr))
 '''Output:
 7
 '''
+
+
+'''
+Practice
+'''
+
+
+
+lst = [4, 2, 7, 2, 9, 4, 1]
+
+# Reverse a array
+rev = lst[::-1]
+print(rev)
+
+lst.reverse()
+print(lst)
+
+'''Output:
+[1, 4, 9, 2, 7, 2, 4]
+'''
+
+# Find max and min
+print("Max:", max(lst))
+print("Min:", min(lst))
+
+'''Output:
+Max: 9
+Min: 1
+'''
+
+# Remove duplicates
+unique = list(set(lst))
+print(unique)
+
+
+'''Output:
+[1, 2, 4, 7, 9]
+'''
+
+unique = []
+
+for num in lst:
+    if num not in unique:
+        unique.append(num)
+
+print(unique)
+
+'''Output:
+[4, 2, 7, 9, 1]
+'''
+
+# Find second largest number
+unique = list(set(lst))
+unique.sort(reverse=True)
+
+print("Second largest:", unique[1])
+
+'''Output:
+Second largest: 7
+'''
+
+# Merge two array
+lst1 = [1, 2, 3]
+lst2 = [4, 5, 6]
+
+merged = lst1 + lst2
+print(merged)
+
+'''Output:
+[1, 2, 3, 4, 5, 6]
+'''
+
+# Count frequency of elements
+freq = {}
+
+for num in lst:
+    freq[num] = freq.get(num, 0) + 1
+
+print(freq)
+
+'''Output:
+{4: 2, 2: 2, 7: 1, 9: 1, 1: 1}
+'''
