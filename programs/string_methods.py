@@ -520,3 +520,61 @@ print("removesuffix: ",s.removesuffix(".txt"))
 '''Output:
 file
 '''
+
+
+'''
+practice
+'''
+
+my_string = " Hello, Python developers! Have fun with strings! "
+
+# 1. Reverse a string
+reverse_s = my_string[::-1]
+print(reverse_s)
+
+'''Output:
+ !sgnirts htiw nuf evaH !srepoleved nohtyP ,olleH 
+'''
+
+# Count vowels in a string
+vowels = "aeiouAEIOU"
+count = 0
+for ch in my_string:
+    if ch in vowels:
+        count += 1
+print("vowel count:", count)
+
+'''Output:
+vowel count: 12
+'''
+
+# Check palindrome
+s = my_string.replace(" ", "").lower()
+print(s)
+
+if s == s[::-1]:
+    print("Palindrome")
+else:
+    print("Not Palindrome")
+
+'''Output:
+hello,pythondevelopers!havefunwithstrings!
+Not Palindrome
+'''
+
+# Remove spaces from string
+no_space = my_string.replace(" ", "").lower()
+print(no_space)
+
+'''Output:
+hello,pythondevelopers!havefunwithstrings!
+'''
+
+# Convert "hello world" to "Hello World"
+word = "hello world"
+result = word.title()
+print(result)
+
+'''Output:
+Hello World
+'''
