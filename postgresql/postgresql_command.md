@@ -1613,3 +1613,268 @@ limit 10;
  Cricket Bat   |          3
 (10 rows)
 ```
+
+## Window Functions
+Window functions (also called analytic functions) perform calculations across a set of rows related to the current row.
+
+Unlike aggregate functions (SUM(), AVG()), window functions do NOT reduce the number of rows — each row retains its identity.  
+
+#### Syntax
+```bash
+window_function_name() OVER (
+    [PARTITION BY partition_expression]
+    [ORDER BY sort_expression [ASC | DESC] [NULLS {FIRST | LAST}]]
+    [frame_clause]
+)
+```
+
+### Key Concepts
+1. PARTITION BY  
+🔷 Divides rows into groups (like GROUP BY)  
+🔷 But does not collapse rows
+
+✅ Example (Total spending per customer)
+```bash
+ecommerce_db=# SELECT o.customer_id, o.order_id, ot.order_total, 
+       SUM(ot.order_total) OVER (PARTITION BY o.customer_id) AS total_spent
+FROM orders o
+JOIN (
+    SELECT order_id, SUM(amount) AS order_total
+    FROM payments
+    GROUP BY order_id
+) ot ON o.order_id = ot.order_id
+limit 10;
+ customer_id | order_id | order_total | total_spent 
+-------------+----------+-------------+-------------
+           1 |        6 |       30500 |       94500
+           1 |        1 |       64000 |       94500
+           2 |        2 |       32400 |       32400
+           3 |        3 |        2500 |        2500
+           4 |        4 |        3500 |        3500
+           5 |        5 |        8000 |        8000
+           7 |        7 |        2400 |        2400
+           8 |        8 |        2500 |        2500
+           9 |        9 |        1800 |        1800
+          10 |       10 |        1500 |        1500
+(10 rows)
+```
+2. ORDER BY (inside OVER)  
+🔷 Defines order of rows inside partition  
+🔷 Used for ranking & running totals
+
+3. Frame Clause
+🔷 Defines range of rows used in calculation  
+
+✅ Example (Running total of sales)
+```bash
+ecommerce_db=# SELECT o.order_id, o.order_date, p.amount,
+       SUM(p.amount) OVER (
+           ORDER BY o.order_date
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) AS running_total
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id 
+limit 10;
+ order_id | order_date | amount | running_total 
+----------+------------+--------+---------------
+        1 | 2024-01-10 |  64000 |         64000
+        2 | 2024-01-12 |  32400 |         96400
+        3 | 2024-01-15 |   2500 |         98900
+        4 | 2024-01-18 |   3500 |        102400
+        5 | 2024-01-20 |   8000 |        110400
+        6 | 2024-01-25 |  30500 |        140900
+        7 | 2024-02-01 |   2400 |        143300
+        8 | 2024-02-03 |   2500 |        145800
+        9 | 2024-02-05 |   1800 |        147600
+       10 | 2024-02-07 |   1500 |        149100
+(10 rows)
+```
+
+### 🔥Types of Window Functions
+**1. Ranking Functions**  
+🔹ROW_NUMBER()  
+Assigns unique number to each row
+
+✅ Example (Latest order per customer)  
+```bash
+ecommerce_db=# SELECT *
+FROM (
+    SELECT order_id, customer_id, order_date,
+           ROW_NUMBER() OVER (
+               PARTITION BY customer_id
+               ORDER BY order_date DESC
+           ) AS rn
+    FROM orders
+) t
+WHERE rn = 1 
+limit 10;
+ order_id | customer_id | order_date | rn 
+----------+-------------+------------+----
+        6 |           1 | 2024-01-25 |  1
+        2 |           2 | 2024-01-12 |  1
+        3 |           3 | 2024-01-15 |  1
+        4 |           4 | 2024-01-18 |  1
+        5 |           5 | 2024-01-20 |  1
+        7 |           7 | 2024-02-01 |  1
+        8 |           8 | 2024-02-03 |  1
+        9 |           9 | 2024-02-05 |  1
+       10 |          10 | 2024-02-07 |  1
+       11 |          11 | 2024-02-08 |  1
+(10 rows)
+```
+🔹RANK()  
+Rank orders based on payment amount (with gaps)
+```bash
+ecommerce_db=# SELECT o.order_id, p.amount,
+       RANK() OVER (ORDER BY p.amount DESC) AS rank
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id 
+limit 10;
+ order_id | amount | rank 
+----------+--------+------
+        1 |  64000 |    1
+       69 |  45000 |    2
+        2 |  32400 |    3
+        6 |  30500 |    4
+       57 |  30000 |    5
+       11 |  25000 |    6
+       56 |  22000 |    7
+       45 |  22000 |    7
+       35 |  22000 |    7
+       14 |  20000 |   10
+(10 rows)
+```
+🔹 DENSE_RANK()  
+Same as RANK but no gaps
+```bash
+ecommerce_db=# SELECT o.order_id, p.amount,
+       DENSE_RANK() OVER (ORDER BY p.amount DESC) AS rank
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id 
+limit 10;
+ order_id | amount | rank 
+----------+--------+------
+        1 |  64000 |    1
+       69 |  45000 |    2
+        2 |  32400 |    3
+        6 |  30500 |    4
+       57 |  30000 |    5
+       11 |  25000 |    6
+       56 |  22000 |    7
+       45 |  22000 |    7
+       35 |  22000 |    7
+       14 |  20000 |    8
+(10 rows)
+```
+
+**2. Aggregate Window Functions**  
+🔹SUM()  
+Running total of payments
+```bash
+ecommerce_db=# SELECT o.order_id, o.order_date, p.amount,
+       SUM(p.amount) OVER (ORDER BY o.order_date) AS running_total
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id 
+limit 10;
+ order_id | order_date | amount | running_total 
+----------+------------+--------+---------------
+        1 | 2024-01-10 |  64000 |         64000
+        2 | 2024-01-12 |  32400 |         96400
+        3 | 2024-01-15 |   2500 |         98900
+        4 | 2024-01-18 |   3500 |        102400
+        5 | 2024-01-20 |   8000 |        110400
+        6 | 2024-01-25 |  30500 |        140900
+        7 | 2024-02-01 |   2400 |        143300
+        8 | 2024-02-03 |   2500 |        145800
+        9 | 2024-02-05 |   1800 |        147600
+       10 | 2024-02-07 |   1500 |        149100
+(10 rows)
+```
+🔹AVG()  
+Average payment amount
+```bash
+ecommerce_db=# SELECT payment_id, amount,
+       AVG(amount) OVER () AS avg_payment
+FROM payments 
+limit 10;
+ payment_id | amount |      avg_payment      
+------------+--------+-----------------------
+          1 |  64000 | 6878.0000000000000000
+          2 |  32400 | 6878.0000000000000000
+          3 |   2500 | 6878.0000000000000000
+          4 |   3500 | 6878.0000000000000000
+          5 |   8000 | 6878.0000000000000000
+          6 |  30500 | 6878.0000000000000000
+          7 |   2400 | 6878.0000000000000000
+          8 |   2500 | 6878.0000000000000000
+          9 |   1800 | 6878.0000000000000000
+         10 |   1500 | 6878.0000000000000000
+(10 rows)
+```
+🔹COUNT()  
+Total number of payments
+```bash
+ecommerce_db=# SELECT payment_id,
+       COUNT(*) OVER () AS total_payments
+FROM payments 
+limit 10;
+ payment_id | total_payments 
+------------+----------------
+          1 |             75
+          2 |             75
+          3 |             75
+          4 |             75
+          5 |             75
+          6 |             75
+          7 |             75
+          8 |             75
+          9 |             75
+         10 |             75
+(10 rows)
+```
+
+**3. LEAD & LAG Functions**  
+🔹 LAG()  
+Previous order amount
+```bash
+ecommerce_db=# SELECT o.order_id, o.order_date, p.amount,
+       LAG(p.amount) OVER (ORDER BY o.order_date) AS previous_amount
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id 
+limit 10;
+ order_id | order_date | amount | previous_amount 
+----------+------------+--------+-----------------
+        1 | 2024-01-10 |  64000 |                
+        2 | 2024-01-12 |  32400 |           64000
+        3 | 2024-01-15 |   2500 |           32400
+        4 | 2024-01-18 |   3500 |            2500
+        5 | 2024-01-20 |   8000 |            3500
+        6 | 2024-01-25 |  30500 |            8000
+        7 | 2024-02-01 |   2400 |           30500
+        8 | 2024-02-03 |   2500 |            2400
+        9 | 2024-02-05 |   1800 |            2500
+       10 | 2024-02-07 |   1500 |            1800
+(10 rows)
+```
+🔹LEAD()  
+Next order amount
+```bash
+ecommerce_db=# SELECT o.order_id, o.order_date, p.amount,
+       LEAD(p.amount) OVER (ORDER BY o.order_date) AS next_amount
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id 
+limit 10;
+ order_id | order_date | amount | next_amount 
+----------+------------+--------+-------------
+        1 | 2024-01-10 |  64000 |       32400
+        2 | 2024-01-12 |  32400 |        2500
+        3 | 2024-01-15 |   2500 |        3500
+        4 | 2024-01-18 |   3500 |        8000
+        5 | 2024-01-20 |   8000 |       30500
+        6 | 2024-01-25 |  30500 |        2400
+        7 | 2024-02-01 |   2400 |        2500
+        8 | 2024-02-03 |   2500 |        1800
+        9 | 2024-02-05 |   1800 |        1500
+       10 | 2024-02-07 |   1500 |       25000
+(10 rows)
+```
