@@ -120,3 +120,61 @@ print(d)
 '''Output:
 {'name': 'John', 'age': 25}
 '''
+
+
+'''Practice'''
+
+
+#Sort dictionary by values
+d = {'a': 3, 'b': 1, 'c': 2}
+
+sorted_d = dict(sorted(d.items(), key=lambda x: x[1]))
+print(sorted_d)
+
+'''Output:
+{'b': 1, 'c': 2, 'a': 3}
+'''
+
+#Merge two dictionaries
+d1 = {'a': 1}
+d2 = {'b': 2}
+
+result = {**d1, **d2}
+print(result)
+
+'''Output:
+{'a': 1, 'b': 2}
+'''
+
+# Get key with maximum value
+d = {'a': 10, 'b': 20, 'c': 15}
+
+max_key = max(d, key=d.get)
+print(max_key)
+
+'''Output:
+b
+'''
+
+#Invert dictionary
+d = {'a': 1, 'b': 2}
+
+inv = {v: k for k, v in d.items()}
+print(inv)
+
+'''Output:
+{1: 'a', 2: 'b'}
+'''
+
+#Count character frequency
+s = "hello"
+
+freq = {}
+for ch in s:
+    freq[ch] = freq.get(ch, 0) + 1
+
+print(freq)
+
+'''Output:
+{'h': 1, 'e': 1, 'l': 2, 'o': 1}
+'''
