@@ -578,3 +578,18 @@ print(result)
 '''Output:
 Hello World
 '''
+
+#Find most frequent character
+no_space = my_string.replace(" ", "").lower()
+
+freq = {}
+for ch in no_space:
+    freq[ch] = freq.get(ch, 0) + 1
+
+max_char = max(freq, key=freq.get)
+print(max_char)
+
+'''Output:
+e
+'''
+
