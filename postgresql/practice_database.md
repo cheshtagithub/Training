@@ -939,3 +939,443 @@ WHERE oc.customer_id IS NULL;
          100 | Tanya
 (26 rows)
 ```
+
+41. Get all customers from the customers table.
+```bash
+ecommerce_db=# select * from customers ;
+ customer_id |   name    |        email        |   city    
+-------------+-----------+---------------------+-----------
+           1 | Rahul     | rahul@gmail.com     | Delhi
+           2 | Anita     | anita@gmail.com     | Mumbai
+           3 | Vikas     | vikas@gmail.com     | Pune
+           4 | Priya     | priya@gmail.com     | Bangalore
+           5 | Amit      | amit@gmail.com      | Hyderabad
+           6 | Neha      | neha@gmail.com      | Chennai
+           7 | Karan     | karan@gmail.com     | Delhi
+           8 | Sneha     | sneha@gmail.com     | Pune
+           9 | Rohit     | rohit@gmail.com     | Mumbai
+          10 | Pooja     | pooja@gmail.com     | Delhi
+          11 | Arjun     | arjun@gmail.com     | Bangalore
+          12 | Simran    | simran@gmail.com    | Chennai
+          13 | Manish    | manish@gmail.com    | Hyderabad
+          14 | Divya     | divya@gmail.com     | Kolkata
+          15 | Nikhil    | nikhil@gmail.com    | Pune
+          16 | Megha     | megha@gmail.com     | Mumbai
+          17 | Yash      | yash@gmail.com      | Delhi
+          18 | Sonal     | sonal@gmail.com     | Bangalore
+          19 | Varun     | varun@gmail.com     | Hyderabad
+          20 | Riya      | riya@gmail.com      | Pune
+          21 | Deepak    | deepak@gmail.com    | Delhi
+          22 | Tina      | tina@gmail.com      | Mumbai
+          23 | Harsh     | harsh@gmail.com     | Chennai
+          24 | Kavya     | kavya@gmail.com     | Bangalore
+          25 | Aditya    | aditya@gmail.com    | Hyderabad
+          26 | Rakesh    | rakesh@gmail.com    | Delhi
+          27 | Ayesha    | ayesha@gmail.com    | Mumbai
+          28 | Suresh    | suresh@gmail.com    | Chennai
+          29 | Komal     | komal@gmail.com     | Pune
+          30 | Ankit     | ankit@gmail.com     | Bangalore
+          31 | Ritu      | ritu@gmail.com      | Hyderabad
+          32 | Tarun     | tarun@gmail.com     | Delhi
+          33 | Nisha     | nisha@gmail.com     | Kolkata
+          34 | Gaurav    | gaurav@gmail.com    | Mumbai
+          35 | Shreya    | shreya@gmail.com    | Pune
+          36 | Abhishek  | abhishek@gmail.com  | Bangalore
+          37 | Isha      | isha@gmail.com      | Chennai
+          38 | Siddharth | siddharth@gmail.com | Hyderabad
+          39 | Aarti     | aarti@gmail.com     | Delhi
+          40 | Rohan     | rohan@gmail.com     | Mumbai
+          41 | Payal     | payal@gmail.com     | Pune
+          42 | Vivek     | vivek@gmail.com     | Bangalore
+          43 | Tanvi     | tanvi@gmail.com     | Kolkata
+          44 | Akash     | akash@gmail.com     | Hyderabad
+          45 | Muskan    | muskan@gmail.com    | Delhi
+          46 | Sameer    | sameer@gmail.com    | Chennai
+          47 | Shruti    | shruti@gmail.com    | Mumbai
+          48 | Mohit     | mohit@gmail.com     | Pune
+          49 | Pankaj    | pankaj@gmail.com    | Bangalore
+          50 | Alok      | alok@gmail.com      | Hyderabad
+          51 | Anjali    | anjali@gmail.com    | Delhi
+          52 | Ravi      | ravi@gmail.com      | Mumbai
+          53 | Kunal     | kunal@gmail.com     | Pune
+          54 | Sakshi    | sakshi@gmail.com    | Bangalore
+          55 | Ajay      | ajay@gmail.com      | Hyderabad
+          56 | Monika    | monika@gmail.com    | Chennai
+          57 | Raj       | raj@gmail.com       | Delhi
+          58 | Pallavi   | pallavi@gmail.com   | Kolkata
+          59 | Nitin     | nitin@gmail.com     | Mumbai
+          60 | Bhavna    | bhavna@gmail.com    | Pune
+          61 | Chirag    | chirag@gmail.com    | Bangalore
+          62 | Preeti    | preeti@gmail.com    | Delhi
+          63 | Arnav     | arnav@gmail.com     | Hyderabad
+          64 | Sonia     | sonia@gmail.com     | Chennai
+          65 | Lakshya   | lakshya@gmail.com   | Mumbai
+          66 | Reena     | reena@gmail.com     | Kolkata
+          67 | Vishal    | vishal@gmail.com    | Delhi
+          68 | Sanya     | sanya@gmail.com     | Pune
+          69 | Umesh     | umesh@gmail.com     | Bangalore
+          70 | Heena     | heena@gmail.com     | Hyderabad
+          71 | Rajat     | rajat@gmail.com     | Delhi
+          72 | Shivani   | shivani@gmail.com   | Mumbai
+          73 | Gopal     | gopal@gmail.com     | Chennai
+          74 | Kriti     | kriti@gmail.com     | Pune
+          75 | Manav     | manav@gmail.com     | Bangalore
+          76 | Jyoti     | jyoti@gmail.com     | Delhi
+          77 | Tushar    | tushar@gmail.com    | Hyderabad
+          78 | Ansh      | ansh@gmail.com      | Mumbai
+          79 | Riddhi    | riddhi@gmail.com    | Kolkata
+          80 | Dev       | dev@gmail.com       | Delhi
+          81 | Raman     | raman@gmail.com     | Pune
+          82 | Seema     | seema@gmail.com     | Chennai
+          83 | Aman      | aman2@gmail.com     | Mumbai
+          84 | Kiran     | kiran@gmail.com     | Bangalore
+          85 | Puneet    | puneet@gmail.com    | Delhi
+          86 | Surbhi    | surbhi@gmail.com    | Hyderabad
+          87 | Rakesh2   | rakesh2@gmail.com   | Pune
+          88 | Anamika   | anamika@gmail.com   | Mumbai
+          89 | Kabir     | kabir@gmail.com     | Delhi
+          90 | Ruchi     | ruchi@gmail.com     | Kolkata
+          91 | Ashish    | ashish@gmail.com    | Hyderabad
+          92 | Meenal    | meenal@gmail.com    | Chennai
+          93 | Pratik    | pratik@gmail.com    | Pune
+          94 | Diya      | diya@gmail.com      | Bangalore
+          95 | Keshav    | keshav@gmail.com    | Delhi
+          96 | Samar     | samar@gmail.com     | Mumbai
+          97 | Rituja    | rituja@gmail.com    | Pune
+          98 | Varsha    | varsha@gmail.com    | Hyderabad
+          99 | Anurag    | anurag@gmail.com    | Bangalore
+         100 | Tanya     | tanya@gmail.com     | Delhi
+(100 rows)
+```
+
+42. Fetch all orders placed after '2024-04-01'.
+```bash
+ecommerce_db=# select * from orders
+ecommerce_db-# where order_date > '2024-04-01';
+ order_id | customer_id | order_date 
+----------+-------------+------------
+       58 |          58 | 2024-04-02
+       59 |          59 | 2024-04-03
+       60 |          60 | 2024-04-04
+       61 |          61 | 2024-04-05
+       62 |          62 | 2024-04-06
+       63 |          63 | 2024-04-07
+       64 |          64 | 2024-04-08
+       65 |          65 | 2024-04-09
+       66 |          66 | 2024-04-10
+       67 |          67 | 2024-04-11
+       68 |          68 | 2024-04-12
+       69 |          69 | 2024-04-13
+       70 |          70 | 2024-04-14
+       71 |          71 | 2024-04-15
+       72 |          72 | 2024-04-16
+       73 |          73 | 2024-04-17
+       74 |          74 | 2024-04-18
+       75 |          75 | 2024-04-19
+(18 rows)
+```
+
+43. Show top 5 highest order amounts (assume amount in payments).
+```bash
+ecommerce_db=# select * from payments ;
+ecommerce_db=# select order_id, amount
+ecommerce_db-# from payments 
+ecommerce_db-# order by amount desc
+ecommerce_db-# limit 5;
+ order_id | amount 
+----------+--------
+        1 |  64000
+       69 |  45000
+        2 |  32400
+        6 |  30500
+       57 |  30000
+(5 rows)
+```
+
+44. Count total number of orders
+```bash
+ecommerce_db=# select count(order_id) as total_order
+ecommerce_db-# from orders ;
+ total_order 
+-------------
+          75
+(1 row)
+```
+
+45. Find total revenue
+```bash
+ecommerce_db=# SELECT SUM(amount) AS total_revenue
+ecommerce_db-# FROM payments;
+ total_revenue 
+---------------
+        515850
+(1 row)
+```
+
+46. Find average order amount 
+```bash
+ecommerce_db=# select avg(amount) as avg_order_amount
+ecommerce_db-# from payments 
+ecommerce_db-# ;
+   avg_order_amount    
+-----------------------
+ 6878.0000000000000000
+(1 row)
+```
+
+47. Get total orders per customer
+```bash
+ecommerce_db=# select c.customer_id,count(o.order_id) as total_order
+ecommerce_db-# from customers c
+ecommerce_db-# left join orders o
+ecommerce_db-# on c.customer_id=o.customer_id
+ecommerce_db-# group by c.customer_id;
+ customer_id | total_order 
+-------------+-------------
+          55 |     1
+          27 |     1
+          23 |     1
+          56 |     1
+          91 |     0
+          58 |     1
+           8 |     1
+          87 |     0
+          74 |     1
+          54 |     1
+          29 |     1
+          71 |     1
+          68 |     1
+           4 |     1
+          34 |     1
+          51 |     1
+          96 |     0
+          80 |     0
+          70 |     1
+          52 |     1
+          83 |     0
+          67 |     1
+          63 |     1
+          90 |     0
+          10 |     1
+          35 |     1
+          45 |     1
+           6 |     0
+          86 |     0
+          84 |     0
+          39 |     1
+          92 |     0
+          89 |     0
+          93 |     0
+          69 |     1
+          36 |     1
+          31 |     1
+          50 |     1
+          60 |     1
+          97 |     0
+          14 |     1
+          66 |     1
+          22 |     1
+          59 |     1
+          13 |     1
+          65 |     1
+           2 |     1
+          16 |     1
+          62 |     1
+          75 |     1
+          98 |     0
+          73 |     1
+          44 |     1
+          11 |     1
+          99 |     0
+          42 |     1
+          88 |     0
+          82 |     0
+          41 |     1
+          46 |     1
+          40 |     1
+          43 |     1
+          53 |     1
+          32 |     1
+           9 |     1
+           7 |     1
+         100 |     0
+          38 |     1
+          15 |     1
+          79 |     0
+          48 |     1
+          26 |     1
+          12 |     1
+          85 |     0
+          72 |     1
+          95 |     0
+          78 |     0
+          57 |     1
+          24 |     1
+          81 |     0
+          61 |     1
+          19 |     1
+          77 |     0
+          25 |     1
+          94 |     0
+          30 |     1
+          21 |     1
+          49 |     1
+          47 |     1
+           3 |     1
+          17 |     1
+          37 |     1
+          28 |     1
+          20 |     1
+          33 |     1
+           1 |     2
+          76 |     0
+           5 |     1
+          18 |     1
+          64 |     1
+(100 rows)
+```
+
+48. Find customers with more than 5 orders
+```bash
+ecommerce_db=# select c.customer_id,c.name,count(o.order_id) as total_order
+from customers c
+left join orders o
+on c.customer_id=o.customer_id
+group by c.customer_id, c.name
+having count(o.order_id)>5;
+ customer_id | name | total_order 
+-------------+------+-------------
+(0 rows)
+```
+
+49. Show customer name with their total spending
+```bash
+ecommerce_db=# select c.customer_id,c.name,coalesce(sum(p.amount),0) as total_spending
+ecommerce_db-# from customers c
+ecommerce_db-# left join orders o
+ecommerce_db-# on c.customer_id=o.customer_id
+ecommerce_db-# left join payments p
+ecommerce_db-# on o.order_id=p.order_id
+ecommerce_db-# group by c.customer_id,c.name
+ecommerce_db-# order by c.customer_id;
+ customer_id |   name    | total_spending 
+-------------+-----------+----------------
+           1 | Rahul     |          94500
+           2 | Anita     |          32400
+           3 | Vikas     |           2500
+           4 | Priya     |           3500
+           5 | Amit      |           8000
+           6 | Neha      |              0
+           7 | Karan     |           2400
+           8 | Sneha     |           2500
+           9 | Rohit     |           1800
+          10 | Pooja     |           1500
+          11 | Arjun     |          25000
+          12 | Simran    |           1400
+          13 | Manish    |            900
+          14 | Divya     |          20000
+          15 | Nikhil    |           5000
+          16 | Megha     |           6000
+          17 | Yash      |           3500
+          18 | Sonal     |            800
+          19 | Varun     |           1300
+          20 | Riya      |           7000
+          21 | Deepak    |           9000
+          22 | Tina      |           2600
+          23 | Harsh     |          18000
+          24 | Kavya     |           1200
+          25 | Aditya    |           2500
+          26 | Rakesh    |          11000
+          27 | Ayesha    |          15500
+          28 | Suresh    |           2200
+          29 | Komal     |           1800
+          30 | Ankit     |           3500
+          31 | Ritu      |            950
+          32 | Tarun     |           3000
+          33 | Nisha     |           1200
+          34 | Gaurav    |           2500
+          35 | Shreya    |          22000
+          36 | Abhishek  |           7500
+          37 | Isha      |           1100
+          38 | Siddharth |           2000
+          39 | Aarti     |            400
+          40 | Rohan     |            900
+          41 | Payal     |           1800
+          42 | Vivek     |           3200
+          43 | Tanvi     |           2800
+          44 | Akash     |           2500
+          45 | Muskan    |          22000
+          46 | Sameer    |           1500
+          47 | Shruti    |           2200
+          48 | Mohit     |            400
+          49 | Pankaj    |            900
+          50 | Alok      |           3000
+          51 | Anjali    |            350
+          52 | Ravi      |            400
+          53 | Kunal     |            250
+          54 | Sakshi    |            450
+          55 | Ajay      |            700
+          56 | Monika    |          22000
+          57 | Raj       |          30000
+          58 | Pallavi   |           7500
+          59 | Nitin     |           6500
+          60 | Bhavna    |           5200
+          61 | Chirag    |           1200
+          62 | Preeti    |            600
+          63 | Arnav     |           1500
+          64 | Sonia     |           1100
+          65 | Lakshya   |            900
+          66 | Reena     |           3500
+          67 | Vishal    |           2500
+          68 | Sanya     |           9000
+          69 | Umesh     |          45000
+          70 | Heena     |            900
+          71 | Rajat     |            850
+          72 | Shivani   |            500
+          73 | Gopal     |           2800
+          74 | Kriti     |           1800
+          75 | Manav     |           1200
+          76 | Jyoti     |              0
+          77 | Tushar    |              0
+          78 | Ansh      |              0
+          79 | Riddhi    |              0
+          80 | Dev       |              0
+          81 | Raman     |              0
+          82 | Seema     |              0
+          83 | Aman      |              0
+          84 | Kiran     |              0
+          85 | Puneet    |              0
+          86 | Surbhi    |              0
+          87 | Rakesh2   |              0
+          88 | Anamika   |              0
+          89 | Kabir     |              0
+          90 | Ruchi     |              0
+          91 | Ashish    |              0
+          92 | Meenal    |              0
+          93 | Pratik    |              0
+          94 | Diya      |              0
+          95 | Keshav    |              0
+          96 | Samar     |              0
+          97 | Rituja    |              0
+          98 | Varsha    |              0
+          99 | Anurag    |              0
+         100 | Tanya     |              0
+(100 rows)
+```
+
+50. Find the customer who spent the most
+```bash
+ecommerce_db=# select c.customer_id,c.name,coalesce(sum(p.amount),0) as total_spending
+ecommerce_db-# from customers c
+ecommerce_db-# left join orders o
+ecommerce_db-# on c.customer_id=o.customer_id
+ecommerce_db-# left join payments p
+ecommerce_db-# on o.order_id=p.order_id
+ecommerce_db-# group by c.customer_id,c.name
+ecommerce_db-# order by total_spending desc limit 1;
+ customer_id | name  | total_spending 
+-------------+-------+----------------
+           1 | Rahul |          94500
+(1 row)
+
+
