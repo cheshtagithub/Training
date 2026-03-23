@@ -77,3 +77,82 @@ app	      |   FastAPI object
 --reload  |   Auto restart server when code changes
 ```
 
+## HTTP Methods in FastAPI
+HTTP methods define what action the client wants to perform on the server.  
+They are used in APIs to perform CRUD operations.
+
+CRUD meaning:
+```bash
+Operation   |   Meaning
+------------+-------------
+Create	    | Add new data
+Read	    | Get data
+Update	    | Modify data
+Delete	    | Remove data
+```
+
+### 1. GET Method
+**Definition:**GET is used to retrieve data from the server.
+
+Example Uses:  
+🔹 Get list of users  
+🔹 Get product details  
+🔹 Get order information  
+
+**Example:**
+```bash
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "Welcome to FastAPI"}
+
+@app.get("/users")
+def get_users():
+    return {"message": "List of users"}
+```
+
+### 2. POST Method
+**Definition:**POST is used to create new data on the server.
+
+Example Uses:  
+🔹 Add new user  
+🔹 Create order  
+🔹 Register account  
+
+### 3. PUT Method
+**Definition:** PUT is used to update existing data completely.
+
+Example Uses:  
+🔹 Update user details  
+🔹 Replace a product record
+
+### 4. PATCH Method
+**Definition:** PATCH is used to update only part of the data.
+
+Example Uses:  
+🔹 Update only email  
+🔹 Update user password
+
+### 5. DELETE Method
+**Definition:** DELETE is used to remove data from the server.
+
+Example Uses:  
+🔹 Delete user  
+🔹 Delete order  
+🔹 Remove product
+
+### Summary Table
+```bash
+Method |     Purpose       |  CRUD
+-------+-------------------+-------------
+GET    | Retrieve data     |  Read
+POST   | Create data       |  Create
+PUT    | Update full data  |  Update
+PATCH  |Update partial data|  Update
+DELETE | Remove data        |  Delete
+```
+
+
