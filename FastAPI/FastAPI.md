@@ -155,4 +155,46 @@ PATCH  |Update partial data|  Update
 DELETE | Remove data        |  Delete
 ```
 
+##  Parameters in FastAPI
+When a client sends a request, it often sends extra information with the URL.   
+These extra values are called parameters.
 
+There are two main types:
+```bash
+Type           | Where it appears |  Example
+---------------+------------------+----------
+Path Parameter | Inside URL path  | /users/10
+Query Parameter| After ? in URL   | /users?name=Rahul
+```
+
+### 1️⃣ Path Parameters
+A Path Parameter is a value inside the URL path.  
+**Example URL:**
+```bash
+/users/3
+```
+Here:
+```bash
+3 = path parameter
+```
+It usually represents IDs or indexes.
+
+### 2️⃣ Query Parameters
+Query parameters appear after ? in the URL.  
+**Example:**
+```bash
+/search?name=rahul
+```
+Here:
+```bash
+name = query parameter
+```
+
+### path vs query
+```bash
+Feature  |  Path Parameter  |  Query Parameter
+---------+------------------+-------------------
+Location |  Inside URL      |  After ?
+Example  |  /users/10       |  /users?limit=10
+Use Case | Identify resource|  Filtering / searching
+```
