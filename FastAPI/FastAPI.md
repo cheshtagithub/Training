@@ -198,3 +198,84 @@ Location |  Inside URL      |  After ?
 Example  |  /users/10       |  /users?limit=10
 Use Case | Identify resource|  Filtering / searching
 ```
+
+## Request Body and Pydantic
+
+### Request Body
+A request body is data sent by the client to the server inside an HTTP request.
+
+It is usually sent in JSON format.
+
+### Pydantic
+Pydantic is a Python library used for:  
+🔹 Data validation  
+🔹 Data parsing  
+🔹 Defining data structure  
+🔹 Automatic type conversion
+
+FastAPI uses Pydantic models to define the structure of request data.
+
+### Creating a Pydantic Model
+First import BaseModel:
+```bash
+from pydantic import BaseModel
+```
+Create a model:
+```bash
+class Product(BaseModel):
+    name: str
+    price: int
+```
+Explanation:
+```bash
+Field  |  Type
+-------+---------
+name   |  string
+price  |  integer
+```
+Both fields are required.
+
+### Using Pydantic Model in FastAPI
+Example API:
+```bash
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Product(BaseModel):
+    name: str
+    price: int
+
+@app.post("/products")
+def create_product(product: Product):
+    return product
+```
+Here:  
+🔹 FastAPI reads the request body  
+🔹 Converts it into a Product object  
+🔹 Sends it to the function
+
+### Accessing Data
+Inside the function we can access fields like this:
+```bash
+product.name
+product.price
+```
+Example response:
+```bash
+{
+  "name": "Laptop",
+  "price": 60000
+}
+```
+
+### Advantages of Pydantic in FastAPI
+🔹 Automatic data validation  
+🔹 Cleaner code  
+🔹 Structured request handling  
+🔹 Automatic API documentation  
+🔹 Type safety  
+
+
+
