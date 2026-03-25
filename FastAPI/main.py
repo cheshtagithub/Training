@@ -112,36 +112,44 @@
 # def get_users():
 #     return {"users": users}
 
+# from fastapi import FastAPI
+# from pydantic import BaseModel, Field, EmailStr
+
+# app = FastAPI()
+
+# users = []
+
+# class User(BaseModel):
+#     name: str = Field(min_length=3, max_length=50)
+#     email: EmailStr
+#     age: int = Field(gt=0, lt=100)
+#     phone: str = Field(min_length=10, max_length=10)
+#     password: str = Field(min_length=8)
+#     is_active: bool = True
+
+
+# @app.post("/users")
+# def create_user(user: User):
+
+#     users.append(user.model_dump())
+
+#     return {
+#         "message": "User added successfully",
+#         "user": user
+#     }
+
+
+# @app.get("/users")
+# def get_users():
+
+#     return {
+#         "users": users
+#     }
+
+
 from fastapi import FastAPI
-from pydantic import BaseModel, Field, EmailStr
+from routers.user_router import router as user_router
 
 app = FastAPI()
 
-users = []
-
-class User(BaseModel):
-    name: str = Field(min_length=3, max_length=50)
-    email: EmailStr
-    age: int = Field(gt=0, lt=100)
-    phone: str = Field(min_length=10, max_length=10)
-    password: str = Field(min_length=8)
-    is_active: bool = True
-
-
-@app.post("/users")
-def create_user(user: User):
-
-    users.append(user.model_dump())
-
-    return {
-        "message": "User added successfully",
-        "user": user
-    }
-
-
-@app.get("/users")
-def get_users():
-
-    return {
-        "users": users
-    }
+app.include_router(user_router)
