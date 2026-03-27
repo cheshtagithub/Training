@@ -341,5 +341,153 @@ You can also make images clickable.
 </a>
 ```
 
+### What is a List in HTML?
+A list is used to display multiple related items in an organized way.
+
+**Example in normal text:**  
+Fruits  
+Apple  
+Banana  
+Mango  
+HTML lets us display this properly structured.
+
+#### Unordered List (ul)
+An unordered list shows items with bullet points.
+
+**Example:**  
+* Apple  
+* Banana  
+* Mango
+
+**Syntax**
+```bash
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+```
+
+#### Ordered List (ol)
+An ordered list shows items with numbers.
+
+**Example:**  
+1. Wake up  
+2. Brush teeth  
+3. Eat breakfast
+
+**Syntax**  
+```bash
+<ol>
+    <li>Step 1</li>
+    <li>Step 2</li>
+    <li>Step 3</li>
+</ol>
+```
+
+#### Difference Between ul and ol
+```bash
+Feature          |     ul      |  ol
+-----------------+-------------+-----------------
+Marker           |   Bullet    | Number
+Order important? |     No      |  Yes
+Example          |Features list| Step-by-step instructions
+```
+
+#### Nested Lists (List inside List)
+Sometimes we create sub-lists.
+
+**Example:**
+```bash
+<ul>
+    <li>Fruits
+        <ul>
+            <li>Apple</li>
+            <li>Mango</li>
+        </ul>
+    </li>
+
+    <li>Vegetables
+        <ul>
+            <li>Carrot</li>
+            <li>Potato</li>
+        </ul>
+    </li>
+</ul>
+```
+
+#### Ordered List Types
+Ordered lists can use different numbering styles.
+
+**Example:**
+```bash
+<ol type="A">
+```
+Possible types:
+```bash
+Type | Output
+-----+----------
+1    | 1,2,3
+A    | A,B,C
+a    | a,b,c
+I    | I,II,III
+i    | i,ii,iii
+```
+
+#### Starting Number in Ordered List
+**Example:**
+```bash
+<ol start="5">
+```
+
+### What is div?
+div means division of a page. It is used to group elements together.
+
+**Example:**
+```bash
+<div>
+    <h1>Product Name</h1>
+    <p>Description</p>
+</div>
+```
+Here the heading and paragraph belong to the same section.
+
+**div is used for:**  
+🔹 Page structure  
+🔹 Styling with CSS  
+🔹 Creating sections  
+🔹 Organizing content
+
+Example structure:
+```bash
+div (header)
+div (product)
+div (features)
+div (footer)
+```
+
+### What is span
+span is also a container, but it is used for small pieces of text inside a line.  
+The span allows you to target specific words.
+
+#### Difference Between div and span
+```bash
+Feature            |      div      |  span
+-------------------+---------------+-----------------
+Type               | Block element | Inline element 
+Usage              | Large sections| Small text parts
+Starts on new line |     Yes       |     No
+```
+
+### What is class
+class is an attribute used to name an element. It helps us identify elements later (mainly for CSS or JavaScript).
+
+**Example:**
+```bash
+<div class="header">
+    <h1>My Website</h1>
+</div>
+```
+**Why class is Important:** Later when we use CSS, we can style that section.
 
 
