@@ -490,4 +490,153 @@ class is an attribute used to name an element. It helps us identify elements lat
 ```
 **Why class is Important:** Later when we use CSS, we can style that section.
 
+## Semantic HTML
+Before HTML5, developers mostly used `<div>` everywhere.  
+This works, but it has problems:
+
+* Search engines cannot understand the page structure
+* Screen readers (for visually impaired users) cannot understand it
+* Code becomes messy
+
+So HTML5 introduced Semantic Tags.
+
+### What is Semantic HTML?
+Semantic = Meaning  
+Semantic tags tell the browser, search engines, and developers what the content means.
+
+**Example:**  
+Instead of:
+```bash
+<div class="header">
+```
+We write:
+```bash
+<header>
+```
+Now everyone understands:
+➡ This is the header section of the website
+
+#### Main Semantic Tags 
+These are the tags you must know.
+```bash
+Tag    |  Purpose
+-------+---------------------------------------
+header | Top section of website
+nav    | Navigation links
+main   | Main content
+section| A section of content
+article| Independent content (blog post, news)
+aside  | Sidebar content
+footer | Bottom section
+```
+
+**1️⃣ `<header>`**  
+Represents the top part of the page.  
+Usually contains:  
+🔹 Website title  
+🔹  Logo  
+🔹  Navigation menu  
+
+**Example:**
+```bash
+<header>
+    <h1>My Website</h1>
+</header>
+```
+Explanation:
+
+`<header>` ➡ top area
+`<h1>` ➡ main heading
+
+**2️⃣ `<nav>`  
+Used for navigation links.
+
+**Example:**
+```bash
+<nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</nav>
+```
+Explanation:
+
+`<nav>` ➡ navigation menu
+`<a>` ➡ links
+
+**3️⃣ `<main>`  
+Represents the main content of the page.  
+Important rule:  
+A page should have only one `<main>`
+
+**Example:**
+```bash
+<main>
+    <p>Welcome to my website.</p>
+</main>
+```
+
+**4️⃣ `<section>`  
+Represents a section of related content.
+
+**Example:**
+```bash
+<section>
+    <h2>About Us</h2>
+    <p>We provide travel services.</p>
+</section>
+```
+
+**5️⃣ `<article>`  
+Used for independent content.
+
+**Examples:**  
+🔹 Blog post
+🔹 News article
+🔹 Forum post
+🔹 Product card
+
+**Example:**
+```bash
+<article>
+    <h2>Best Places to Visit</h2>
+    <p>Here are some beautiful travel destinations.</p>
+</article>
+```
+
+**6️⃣ `<aside>`**  
+Used for sidebar content.
+
+**Example:**  
+
+🔹 Ads
+🔹 Related links
+🔹 Tips
+🔹 Author info
+
+**Example:**
+```bash
+<aside>
+    <h3>Travel Tips</h3>
+    <p>Always carry a water bottle.</p>
+</aside>
+```
+
+**7️⃣ `<footer>`  
+Represents the bottom part of the website.
+
+**Usually contains:**  
+🔹 Copyright
+🔹 Contact info
+🔹 Social media links
+
+**Example:**
+```bash
+<footer>
+    <p>© 2026 My Website</p>
+</footer>
+```
+
+
+
 
