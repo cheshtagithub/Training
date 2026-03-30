@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Signup</title>
-<link rel="stylesheet" href="style.css">
+<title>Signup Page</title>
+<link rel="stylesheet" href="styles/signup.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="signup-container">
+    <h2>Create Account</h2>
+    <form action="#" method="post">
+        <input type="text" placeholder="Enter your name" required>
+        <br>
+        <input type="email" placeholder="Enter your email" required>
+        <br>
+        <input type="password" placeholder="Enter password here">
+        <br>
+        <button type="submit">Register</button>
+    </form>
 
-<div class="card">
-
-<h1>Signup</h1>
-
-<form>
-
-<label>Name</label>
-<input type="text" placeholder="Enter name" required>
-
-<label>Email</label>
-<input type="email" placeholder="Enter email" required>
-
-<label>Password</label>
-<input type="password" required>
-
-<label>Date of Birth</label>
-<input type="date">
-
-<button type="submit">Create Account</button>
-
-</form>
-
-</div>
-
+    <p class="signin-text">
+        Already a user? <a href="login.html">Sign in</a>
+    </p>
 </div>
 
 </body>
