@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>signup</title>
+        <link rel="stylesheet" href="task7.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Register here!!</h2>
+
+            <form class="container-text" id="signupForm">
+                <input type="text" id="name" placeholder="Enter your name">
+                <p id="nameError"></p>
+                <input type="email" id="email" placeholder="Enter your email">
+                <p id="emailError"></p>
+                <input type="tel" id="phone" placeholder="Enter your phone-number" maxlength="10" pattern="[0-9]{10}">
+                <p id="phoneError"></p>
+                <input type="password" id="password" placeholder="Enter password">
+                <p id="passwordError"></p>
+                <input type="password" id="confirmPassword" placeholder="Confirm password">
+                <p id="confirmError"></p>
+                <input type="checkbox" id="terms">
+                <label for="terms">I agree to the Terms and Conditions</label>
+                <p id="termsError"></p>
+                <button type="submit">Register</button>
+            </form>
+
+        </div>
+        <script src="task7.js"></script>
+    </body>
+</html>
