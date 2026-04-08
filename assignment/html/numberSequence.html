@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Sequence</title>
+    <link rel="stylesheet" href="../css/numberSequence.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Number Series and Calculations</h2>
+        <div class="buttons">
+            <button id="fiboBtn">Fibonacci Series</button>
+            <button id="factBtn">Factorial of a number</button>
+            <button id="oddEvenBtn">Odd or Even number</button>
+            <button id="armBtn">Armstrong Number</button>
+            <button id="primeBtn">Prime number series between two numbers</button>
+        </div>    
+    </div>
+    <div id="popup">
+        <div id="popupBox">
+            <span id="closeBtn">&times</span>
+            <h3 id="popupTitle"></h3>
+            <input type="number" id="popupInput">
+            <button id="calcBtn">Enter</button>
+            <p id="popupResult"></p>
+        </div>
+    </div>
+    <div id="slidePanel">
+        <span id="closeSlide">&times;</span>
+        <h3>Prime Numbers</h3>
+        <input type="number" id="startNum" placeholder="Start Number">
+        <input type="number" id="endNum" placeholder="End Number">
+        <button id="primeCalcBtn">Enter</button>
+        <p id="primeResult"></p>
+    </div>    
+    <script src="../js/numberSequence.js"></script>
+</body>
+</html>
