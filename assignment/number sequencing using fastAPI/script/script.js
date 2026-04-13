@@ -65,6 +65,7 @@ calcBtn.addEventListener("click", async function(){
     else{
         popupResult.innerHTML = data.result;
     }
+
 })
 
 closeBtn.addEventListener("click", function(){

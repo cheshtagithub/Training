@@ -1,0 +1,27 @@
+<%# <h1>Enter Your Name</h1>%>
+<%# <form action="/home/show" method="get">%>
+<%#     <input type="text" name="name">%>
+<%#     <button type="submit">Submit</button>%>
+<%# </form>%>
+
+<!--
+<h1>Enter Your Name</h1>
+
+<form action="/home/show" method="post" data-turbo="false">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="text" name="name">
+    <button type="submit">Submit</button>
+</form>
+-->
+
+<h1>Home page</h1>
+
+<a href="/home/about">Go to About</a>
+<br>
+<a href="/home/contact">Go to contact</a>
+<%= form_with url: "/home/show", method: :post, data: {turbo: false } do %>
+    <h2>Enter Your Name</h2>
+    <%= label_tag :name, "Name:" %>
+    <%= text_field_tag :name %>
+    <%= submit_tag "Submit" %>
+<% end %>
