@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body class="auth-page">
+    <main class="auth-shell">
+        <section class="auth-card app-card">
+            <div class="auth-copy">
+                <span class="auth-eyebrow">Dashboard</span>
+                <h1>Welcome back</h1>
+                <p>Your account summary is loaded below once we verify your token.</p>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-row">
+                    <span class="info-label">Name</span>
+                    <strong id="dashboard-name">Loading...</strong>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email</span>
+                    <strong id="dashboard-email">Loading...</strong>
+                </div>
+            </div>
+
+            <p id="dashboard-message" class="form-message" aria-live="polite"></p>
+
+            <div class="button-row">
+                <a class="secondary-button" href="http://127.0.0.1:8000/profile.html">Go to Profile</a>
+                <button id="logout-button" type="button" class="auth-button">Logout</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="/frontend/js/dashboard.js"></script>
+</body>
+</html>

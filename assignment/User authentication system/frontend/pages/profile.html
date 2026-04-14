@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body class="auth-page">
+    <main class="auth-shell">
+        <section class="auth-card app-card">
+            <div class="auth-copy">
+                <span class="auth-eyebrow">Profile</span>
+                <h1>Your account details</h1>
+                <p>This page shows the information associated with your authenticated account.</p>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-row">
+                    <span class="info-label">Name</span>
+                    <strong id="profile-name">Loading...</strong>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email</span>
+                    <strong id="profile-email">Loading...</strong>
+                </div>
+            </div>
+
+            <p id="profile-message" class="form-message" aria-live="polite"></p>
+
+            <div class="button-row">
+                <a class="secondary-button" href="http://127.0.0.1:8000/dashboard.html">Back to Dashboard</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="/frontend/js/profile.js"></script>
+</body>
+</html>
