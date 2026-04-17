@@ -1,0 +1,46 @@
+name,price,stock,category_id
+iPhone 13,65000,10,1
+Samsung Galaxy S23,70000,8,1
+OnePlus 11,55000,12,1
+MacBook Air,90000,5,1
+Dell Inspiron Laptop,75000,6,1
+Nike Running Shoes,5000,20,2
+Adidas Sneakers,4500,25,2
+Levi's Jeans,2000,30,2
+H&M T-Shirt,800,50,2
+Puma Hoodie,1500,40,2
+Sofa Set,25000,5,3
+Dining Table,18000,4,3
+Wooden Chair,3000,20,3
+Bed Frame,30000,3,3
+Bookshelf,7000,6,3
+Harry Potter Set,1200,50,4
+Atomic Habits Book,500,60,4
+Rich Dad Poor Dad,450,70,4
+Cricket Bat,1200,30,5
+Football,800,40,5
+Yoga Mat,600,50,5
+Dumbbells Set,2000,25,5
+Lipstick Kit,800,40,6
+Face Cream,500,60,6
+Perfume,2000,30,6
+Shampoo,300,70,6
+Kids Toy Car,600,40,7
+Lego Building Set,2500,20,7
+Barbie Doll,1200,35,7
+Toy Kitchen Set,1800,25,7
+Mixer Grinder,3500,15,8
+Microwave Oven,10000,8,8
+Refrigerator,40000,5,8
+Air Conditioner,35000,4,8
+Travel Backpack,2000,30,9
+Suitcase Large,3500,20,9
+Water Bottle,500,60,9
+Gold Ring,15000,10,10
+Silver Chain,5000,20,10
+Diamond Earrings,25000,8,10
+Smart Watch,5000,25,1
+Bluetooth Earbuds,1500,35,1
+Gaming Mouse,2000,25,1
+Mechanical Keyboard,3000,20,1
+DSLR Camera,25000,10,1
