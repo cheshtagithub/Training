@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_17_064633) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_17_112859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_17_064633) do
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.integer "discount"
+    t.date "expiry_date"
     t.datetime "updated_at", null: false
   end
 
@@ -58,6 +66,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_17_064633) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.bigint "order_id", null: false
+    t.string "product_references"
+    t.integer "rating"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["order_id"], name: "index_reviews_on_order_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -71,4 +92,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_17_064633) do
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
+  add_foreign_key "reviews", "orders"
+  add_foreign_key "reviews", "users"
 end
