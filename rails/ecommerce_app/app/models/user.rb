@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  has_many :orders
+  has_many :cart_items
+  has_many :products, through: :cart_items
+  has_many :reviews
+
   validates :name, presence: true, length: { minimum: 2 }
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
