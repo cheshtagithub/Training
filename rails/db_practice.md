@@ -805,3 +805,170 @@ ecommerce-app(dev):016> Product.where(id: [1,2]).and(Product.where(id: [2,3]))
   stock: 8,
   category_id: 1>]
   ```
+
+  ### Practice on expense_tracker
+  ```bash
+  expense-tracker(dev):001> u1 = User.create(name: "Cheshta", email: "cheshta@gmail.com")
+expense-tracker(dev):002> User.all
+  TRANSACTION (0.8ms)  BEGIN /*application='ExpenseTracker'*/
+  User Exists? (4.8ms)  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'cheshta@gmail.com' LIMIT 1 /*application='ExpenseTracker'*/
+  User Create (2.9ms)  INSERT INTO "users" ("name", "email", "created_at", "updated_at") VALUES ('Cheshta', 'cheshta@gmail.com', '2026-04-22 10:07:17.590127', '2026-04-22 10:07:17.590127') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (4.3ms)  COMMIT /*application='ExpenseTracker'*/
+  User Load (2.0ms)  SELECT "users".* FROM "users" /* loading for pp */ LIMIT 11 /*application='ExpenseTracker'*/
+=> 
+[#<User:0x000073b10dc17320
+  id: 1,
+  name: "Cheshta",
+  email: "[FILTERED]",
+  created_at:
+   "2026-04-22 10:07:17.590127000 +0000",
+  updated_at:
+   "2026-04-22 10:07:17.590127000 +0000">]
+expense-tracker(dev):003> u2 = User.create(name: "Rahul", email: "rahul@gmail.com")
+  TRANSACTION (1.0ms)  BEGIN /*application='ExpenseTracker'*/
+  User Exists? (4.2ms)  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'rahul@gmail.com' LIMIT 1 /*application='ExpenseTracker'*/
+  User Create (1.9ms)  INSERT INTO "users" ("name", "email", "created_at", "updated_at") VALUES ('Rahul', 'rahul@gmail.com', '2026-04-22 10:07:51.471353', '2026-04-22 10:07:51.471353') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.5ms)  COMMIT /*application='ExpenseTracker'*/
+=> 
+#<User:0x000073b10c4c5b40
+...
+expense-tracker(dev):004> food = Category.create(name: "Food")
+expense-tracker(dev):005> travel = Category.create(name: "Travel")
+expense-tracker(dev):006> shopping = Category.create(name: "Shopping")
+  TRANSACTION (1.7ms)  BEGIN /*application='ExpenseTracker'*/
+  Category Exists? (9.2ms)  SELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Food' LIMIT 1 /*application='ExpenseTracker'*/
+  Category Create (4.9ms)  INSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Food', '2026-04-22 10:08:16.664741', '2026-04-22 10:08:16.664741') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.7ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (1.1ms)  BEGIN /*application='ExpenseTracker'*/
+  Category Exists? (5.0ms)  SELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Travel' LIMIT 1 /*application='ExpenseTracker'*/
+  Category Create (1.8ms)  INSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Travel', '2026-04-22 10:08:16.697348', '2026-04-22 10:08:16.697348') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.4ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (1.1ms)  BEGIN /*application='ExpenseTracker'*/
+  Category Exists? (4.0ms)  SELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Shopping' LIMIT 1 /*application='ExpenseTracker'*/
+  Category Create (1.5ms)  INSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Shopping', '2026-04-22 10:08:16.719147', '2026-04-22 10:08:16.719147') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.6ms)  COMMIT /*application='ExpenseTracker'*/
+=> 
+#<Category:0x000073b10ed09750
+...
+expense-tracker(dev):007> Category.all
+  Category Load (1.6ms)  SELECT "categories".* FROM "categories" /* loading for pp */ LIMIT 11 /*application='ExpenseTracker'*/
+=> 
+[#<Category:0x000073b10c4ce240
+  id: 1,
+  name: "Food",
+  created_at:
+   "2026-04-22 10:08:16.664741000 +0000",
+  updated_at:
+   "2026-04-22 10:08:16.664741000 +0000">,
+ #<Category:0x000073b10c4ce100
+Preparing full inspection value...
+=> 
+[#<Category:0x000073b10c4ce240
+  id: 1,
+  name: "Food",
+  created_at:
+   "2026-04-22 10:08:16.664741000 +0000",
+  updated_at:
+   "2026-04-22 10:08:16.664741000 +0000">,
+ #<Category:0x000073b10c4ce100
+  id: 2,
+  name: "Travel",
+  created_at:
+   "2026-04-22 10:08:16.697348000 +0000",
+  updated_at:
+   "2026-04-22 10:08:16.697348000 +0000">,
+ #<Category:0x000073b10c4cde80
+  id: 3,
+  name: "Shopping",
+  created_at:
+   "2026-04-22 10:08:16.719147000 +0000",
+  updated_at:
+   "2026-04-22 10:08:16.719147000 +0000">]
+expense-tracker(dev):008> Budget.create(monthly_limit: 5000, user: u1, category: food)
+expense-tracker(dev):009> Budget.create(monthly_limit: 3000, user: u1, category: travel) 
+expense-tracker(dev):010> Budget.create(monthly_limit: 7000, user: u2, category: shopping)
+  TRANSACTION (0.7ms)  BEGIN /*application='ExpenseTracker'*/
+  Budget Exists? (3.6ms)  SELECT 1 AS one FROM "budgets" WHERE "budgets"."category_id" = 1 AND "budgets"."user_id" = 1 LIMIT 1 /*application='ExpenseTracker'*/
+  Budget Create (4.0ms)  INSERT INTO "budgets" ("monthly_limit", "user_id", "category_id", "created_at", "updated_at") VALUES (5000, 1, 1, '2026-04-22 10:09:04.977285', '2026-04-22 10:09:04.977285') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.3ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (0.9ms)  BEGIN /*application='ExpenseTracker'*/
+  Budget Exists? (3.8ms)  SELECT 1 AS one FROM "budgets" WHERE "budgets"."category_id" = 2 AND "budgets"."user_id" = 1 LIMIT 1 /*application='ExpenseTracker'*/
+  Budget Create (2.8ms)  INSERT INTO "budgets" ("monthly_limit", "user_id", "category_id", "created_at", "updated_at") VALUES (3000, 1, 2, '2026-04-22 10:09:04.996623', '2026-04-22 10:09:04.996623') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (5.1ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (2.9ms)  BEGIN /*application='ExpenseTracker'*/
+  Budget Exists? (6.0ms)  SELECT 1 AS one FROM "budgets" WHERE "budgets"."category_id" = 3 AND "budgets"."user_id" = 2 LIMIT 1 /*application='ExpenseTracker'*/
+  Budget Create (2.4ms)  INSERT INTO "budgets" ("monthly_limit", "user_id", "category_id", "created_at", "updated_at") VALUES (7000, 2, 3, '2026-04-22 10:09:05.024365', '2026-04-22 10:09:05.024365') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (3.3ms)  COMMIT /*application='ExpenseTracker'*/
+=> 
+#<Budget:0x000073b10c4c7080
+ id: 3,
+ monthly_limit: 7000,
+ user_id: 2,
+ category_id: 3,
+ created_at:
+  "2026-04-22 10:09:05.024365000 +0000",
+ updated_at:
+  "2026-04-22 10:09:05.024365000 +0000">
+expense-tracker(dev):011> Budget.all
+  Budget Load (2.1ms)  SELECT "budgets".* FROM "budgets" /* loading for pp */ LIMIT 11 /*application='ExpenseTracker'*/
+=> 
+[#<Budget:0x000073b10c4cf140
+  id: 1,
+  monthly_limit: 5000,
+  user_id: 1,
+  category_id: 1,
+  created_at:
+   "2026-04-22 10:09:04.977285000 +0000",
+  updated_at:
+   "2026-04-22 10:09:04.977285000 +0000">,
+ #<Budget:0x000073b10c4cf000
+  id: 2,
+  monthly_limit: 3000,
+  user_id: 1,
+  category_id: 2,
+  created_at:
+   "2026-04-22 10:09:04.996623000 +0000",
+  updated_at:
+   "2026-04-22 10:09:04.996623000 +0000">,
+ #<Budget:0x000073b10c4ced80
+  id: 3,
+  monthly_limit: 7000,
+  user_id: 2,
+  category_id: 3,
+  created_at:
+   "2026-04-22 10:09:05.024365000 +0000",
+  updated_at:
+   "2026-04-22 10:09:05.024365000 +0000">]
+expense-tracker(dev):012> Expense.create(amount: 200, description: "Lunch", date: Date.today, user: u1, category: food)
+expense-tracker(dev):013> Expense.create(amount: 1500, description: "Train Ticket", date: Date.today - 5, user: u1, category: travel)
+expense-tracker(dev):014> Expense.create(amount: 300, description: "Snacks", date: Date.today - 20, user: u1, category: food)
+expense-tracker(dev):015> Expense.create(amount: 2500, description: "Shoes", date: Date.today - 40, user: u2, category: shopping)
+expense-tracker(dev):016> Expense.create(amount: 100, description: "Coffee", date: Date.today, user: u2, category: food)
+  TRANSACTION (1.4ms)  BEGIN /*application='ExpenseTracker'*/
+  Expense Create (9.9ms)  INSERT INTO "expenses" ("amount", "description", "date", "user_id", "category_id", "created_at", "updated_at") VALUES (200, 'Lunch', '2026-04-22', 1, 1, '2026-04-22 10:09:58.982673', '2026-04-22 10:09:58.982673') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.5ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (0.9ms)  BEGIN /*application='ExpenseTracker'*/
+  Expense Create (5.0ms)  INSERT INTO "expenses" ("amount", "description", "date", "user_id", "category_id", "created_at", "updated_at") VALUES (1500, 'Train Ticket', '2026-04-17', 1, 2, '2026-04-22 10:09:59.011351', '2026-04-22 10:09:59.011351') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (3.2ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (1.0ms)  BEGIN /*application='ExpenseTracker'*/
+  Expense Create (6.0ms)  INSERT INTO "expenses" ("amount", "description", "date", "user_id", "category_id", "created_at", "updated_at") VALUES (300, 'Snacks', '2026-04-02', 1, 1, '2026-04-22 10:09:59.034650', '2026-04-22 10:09:59.034650') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (4.6ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (1.1ms)  BEGIN /*application='ExpenseTracker'*/
+  Expense Create (5.9ms)  INSERT INTO "expenses" ("amount", "description", "date", "user_id", "category_id", "created_at", "updated_at") VALUES (2500, 'Shoes', '2026-03-13', 2, 3, '2026-04-22 10:09:59.055366', '2026-04-22 10:09:59.055366') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (2.8ms)  COMMIT /*application='ExpenseTracker'*/
+  TRANSACTION (1.0ms)  BEGIN /*application='ExpenseTracker'*/
+  Expense Create (5.8ms)  INSERT INTO "expenses" ("amount", "description", "date", "user_id", "category_id", "created_at", "updated_at") VALUES (100, 'Coffee', '2026-04-22', 2, 1, '2026-04-22 10:09:59.073540', '2026-04-22 10:09:59.073540') RETURNING "id" /*application='ExpenseTracker'*/
+  TRANSACTION (4.9ms)  COMMIT /*application='ExpenseTracker'*/
+=> 
+#<Expense:0x000073b10c4cf280
+ id: 5,
+ amount: 100,
+ description: "Coffee",
+ date: "2026-04-22",
+ user_id: 2,
+ category_id: 1,
+ created_at:
+  "2026-04-22 10:09:59.073540000 +0000",
+ updated_at:
+  "2026-04-22 10:09:59.073540000 +0000">
+```  
