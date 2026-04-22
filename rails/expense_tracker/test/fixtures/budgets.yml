@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  monthly_limit: 1
+  user: MyString
+  references: MyString
+  category: one
+
+two:
+  monthly_limit: 1
+  user: MyString
+  references: MyString
+  category: two
