@@ -972,3 +972,54 @@ expense-tracker(dev):016> Expense.create(amount: 100, description: "Coffee", dat
  updated_at:
   "2026-04-22 10:09:59.073540000 +0000">
 ```  
+#### after_create callback
+```bash
+expense-tracker(dev):011> u2 = User.last
+  User Load (4.1ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1 /*application='ExpenseTracker'*/
+=> 
+#<User:0x0000754bc83ef010
+...
+expense-tracker(dev):012> u2
+=> 
+#<User:0x0000754bc83ef010
+ id: 2,
+ name: "Rahul",
+ email: "[FILTERED]",
+ created_at:
+  "2026-04-22 10:07:51.471353000 +0000",
+ updated_at:
+  "2026-04-22 10:07:51.471353000 +0000">
+expense-tracker(dev):013> shopping = Category.find_by(name: "Shopping")
+  Category Load (3.8ms)  SELECT "categories".* FROM "categories" WHERE "categories"."name" = 'Shopping' LIMIT 1 /*application='ExpenseTracker'*/
+=> 
+#<Category:0x0000754bc37d67f0
+...
+expense-tracker(dev):014> shopping
+=> 
+#<Category:0x0000754bc37d67f0
+ id: 3,
+ name: "Shopping",
+ created_at:
+  "2026-04-22 10:08:16.719147000 +0000",
+ updated_at:
+  "2026-04-22 10:08:16.719147000 +0000">
+expense-tracker(dev):015> Expense.create(amount: 8000, description: "Shopping at mall", date: Date.today, user: u2, category: shopping)
+  TRANSACTION (1.0ms)  BEGIN /*application='ExpenseTracker'*/
+  Expense Create (7.3ms)  INSERT INTO "expenses" ("amount", "description", "date", "user_id", "category_id", "created_at", "updated_at") VALUES (8000, 'Shopping at mall', '2026-04-22', 2, 3, '2026-04-22 10:53:42.266647', '2026-04-22 10:53:42.266647') RETURNING "id" /*application='ExpenseTracker'*/
+  Budget Load (4.3ms)  SELECT "budgets".* FROM "budgets" WHERE "budgets"."user_id" = 2 AND "budgets"."category_id" = 3 LIMIT 1 /*application='ExpenseTracker'*/
+  Expense Sum (3.3ms)  SELECT SUM("expenses"."amount") FROM "expenses" WHERE "expenses"."user_id" = 2 AND "expenses"."user_id" = 2 AND "expenses"."date" BETWEEN '2026-04-01' AND '2026-04-30' AND "expenses"."category_id" = 3 /*application='ExpenseTracker'*/
+⚠️ Budget exceeded for Shopping!
+  TRANSACTION (5.8ms)  COMMIT /*application='ExpenseTracker'*/
+=> 
+#<Expense:0x0000754bc8d7eb58
+ id: 6,
+ amount: 8000,
+ description: "Shopping at mall",
+ date: "2026-04-22",
+ user_id: 2,
+ category_id: 3,
+ created_at:
+  "2026-04-22 10:53:42.266647000 +0000",
+ updated_at:
+  "2026-04-22 10:53:42.266647000 +0000">
+```
