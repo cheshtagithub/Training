@@ -1,10 +1,12 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user
+  
   def index
-    @orders = Order.where(user_id: 1).includes(:order_items)
+    @orders = current_user.orders.includes(:order_items)
   end
 
   def show
-    @order = Order.find_by(id: params[:id], user_id: 1)
+    @order = current_user.orders.find_by(id: params[:id])
   
     unless @order
       redirect_to orders_path, alert: "Order not found"
@@ -16,7 +18,7 @@ class OrdersController < ApplicationController
 
   
   def create
-    cart_items = CartItem.where(user_id: 1).includes(:product)
+    cart_items = current_user.cart_items.includes(:product)
 
     if cart_items.empty?
       redirect_to cart_items_path, alert: "Cart is empty"
@@ -25,14 +27,13 @@ class OrdersController < ApplicationController
 
     begin
       ActiveRecord::Base.transaction do
-        order = Order.create!(user_id: 1, total_price: 0)
+        order = current_user.orders.create!(total_price: 0)
 
         total = 0
 
         cart_items.each do |item|
-          OrderItem.create!(
-            order_id: order.id,
-            product_id: item.product_id,
+          order.order_items.create!(
+            product: item.product,
             quantity: item.quantity
           )
 
