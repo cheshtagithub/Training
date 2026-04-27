@@ -1,2 +1,37 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h2>Signup</h2>
+
+<%= form_with model: @user, url: signup_path do |f| %>
+
+    <div>
+        <%= f.label :name %> <br>
+        <%= f.text_field :name %>
+    </div>
+
+    <br>
+
+    <div>
+        <%= f.label :email%><br>
+        <%= f.email_field :email %>
+    </div>
+
+    <br>
+
+    <div>
+        <%= f.label :password%><br>
+        <%= f.password_field :password %>
+    </div>
+
+    <br>
+
+    <div>
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation %>
+    </div>
+
+    <br>
+
+    <div>
+        <%= f.submit "Signup" %>
+    </div>
+
+<% end %>
