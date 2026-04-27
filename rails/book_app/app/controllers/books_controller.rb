@@ -2,10 +2,11 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Book.all
+    @books = Book.order(created_at: :desc)
   end
 
   def show
+    # @book is already set by before_action
   end
 
   def new
@@ -16,18 +17,27 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
   
     if @book.save
-      redirect_to books_path, notice: "Book created successfully"
+      redirect_to @book, notice: "Book created successfully"
     else
       render :new
     end
   end
   
   def edit
+    # @book is already set by before_action
+  end
+
+  def update
+    if @book.update(book_params)
+      redirect_to @book, notice: "Book updated successfully"
+    else
+      render :edit
+    end
   end
   
   def destroy
     @book.destroy
-    redirect_to books_path, notice: "Book deleted"
+    redirect_to books_path, notice: "Book deleted successfully"
   end
   
   private

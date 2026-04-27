@@ -12,10 +12,10 @@ class Book < ApplicationRecord
   private
 
   def capitalize_title
-    self.title = title.titleixe
+    self.title = title.titleize
   end
 
   def set_default_genre
-    self.set_default_genre = "General" if genre.blank    
+    self.set_default_genre = "General" if genre.blank?    
   end
 end
