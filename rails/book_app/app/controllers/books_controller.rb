@@ -5,7 +5,8 @@ class BooksController < ApplicationController
     @books = Book.order(created_at: :desc)
 
     if params[:query].present?
-      @books = @books.where("title ILIKE ?", "%#{params[:query]}%")
+      q = "%#{params[:query]}%"
+      @books = @books.where("title ILIKE ? OR author ILIKE ? OR genre ILIKE ?", q, q, q)
     end
   end
 
