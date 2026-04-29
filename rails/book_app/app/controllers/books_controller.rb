@@ -3,6 +3,10 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.order(created_at: :desc)
+
+    if params[:query].present?
+      @books = @books.where("title ILIKE ?", "%#{params[:query]}%")
+    end
   end
 
   def show
