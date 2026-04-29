@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to "/login", notice: "Account created successfully"
+      session[:user_id] = @user.id
+      redirect_to "/tasks", notice: "Account created and logged in"
 
     else
       render :new, status: :unprocessable_entity
