@@ -15,7 +15,10 @@
       <%= text_field_tag :query,
             params[:query],
             placeholder: "Search books...",
-            oninput: "this.form.requestSubmit()" %>
+            data: {
+              controller: "search",
+              action: "input->search#input"
+            }%>
 
     <% end %>
   </div>
