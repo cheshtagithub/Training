@@ -1,0 +1,16 @@
+<h2>Your Tasks</h2>
+
+<%= link_to "New Task", "/tasks/new" %> |
+<%= button_to "Logout", "/logout", method: :delete %>
+
+<hr>
+
+<% @tasks.each do |task| %>
+    <div style="margin-bottom: 10px;">
+        <strong><%= task.title %></strong> (<%= task.status %>)<br>
+        <%= task.description %><br>
+
+        <%= button_to "Delete", "/tasks/#{task.id}", method: :delete %>
+    </div>
+
+<% end %>
