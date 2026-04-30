@@ -20,6 +20,20 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @task = current_user.tasks.find(params[:id])
+  end
+
+  def update
+    @task = current_user.tasks.find(params[:id])
+
+    if @task.update(task_params)
+      redirect_to "/tasks", notice: "Task updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     task = current_user.tasks.find(params[:id])
     task.destroy
