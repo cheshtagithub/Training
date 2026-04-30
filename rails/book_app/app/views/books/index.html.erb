@@ -46,8 +46,14 @@
               <td><%= book.genre %></td>
               <td>₹<%= book.price %></td>
               <td class="action-buttons">
-                <%= link_to "Show", book_path(book), class: "btn-info" %>
-                <%= link_to "Edit", edit_book_path(book), class: "btn-warning" %>
+                <%= link_to "Show", book_path(book),
+                      class: "btn-info",
+                      data: { turbo_frame: "_top" } %>
+
+                <%= link_to "Edit", edit_book_path(book),
+                      class: "btn-warning",
+                      data: { turbo_frame: "_top" } %>
+
                 <%= link_to "Delete", book_path(book),
                       data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
                       class: "btn-danger" %>
