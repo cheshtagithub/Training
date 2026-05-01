@@ -1,0 +1,21 @@
+<%= form_with url: items_path, method: :get, local: true do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search items..." %>
+  <%= submit_tag "Search" %>
+<% end %>
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Items" %>
+
+<h1>Items</h1>
+
+<div id="items">
+  <% @items.each do |item| %>
+    <%= render item %>
+    <p>
+      <%= link_to "Show this item", item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New item", new_item_path %>
+<%= paginate @items %>

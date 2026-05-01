@@ -1,5 +1,5 @@
 <h1>Home Page</h1>
-
+<%= link_to "Add Item", new_item_path, class: "btn-primary" %>
 <% if user_signed_in? %>
   <p>Logged in as: <%= current_user.email %></p>
   <%= button_to "Logout", destroy_user_session_path, method: :delete %>
