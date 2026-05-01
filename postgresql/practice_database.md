@@ -1377,5 +1377,203 @@ ecommerce_db-# order by total_spending desc limit 1;
 -------------+-------+----------------
            1 | Rahul |          94500
 (1 row)
+```
 
+### Hospital management
+```bash
+postgres=# CREATE DATABASE hospital_db;
+CREATE DATABASE
+postgres=# \l
+postgres=# \c hospital_db 
+You are now connected to database "hospital_db" as user "postgres".
+hospital_db=# CREATE TABLE patients (
+  patient_id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  gender VARCHAR(10),
+  city VARCHAR(50)
+);
+CREATE TABLE
+hospital_db=# INSERT INTO patients (name, age, gender, city) VALUES
+('Amit Sharma', 30, 'Male', 'Delhi'),
+('Priya Verma', 25, 'Female', 'Noida'),
+('Rahul Singh', 40, 'Male', 'Gurgaon'),
+('Sneha Kapoor', 35, 'Female', 'Delhi'),
+('Vikas Gupta', 50, 'Male', 'Faridabad');
+INSERT 0 5
+hospital_db=# CREATE TABLE doctors (
+  doctor_id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  specialization VARCHAR(50),
+  consultation_fee INT
+);
+CREATE TABLE
+hospital_db=# INSERT INTO doctors (name, specialization, consultation_fee) VALUES
+('Dr. Mehta', 'Cardiologist', 1000),
+('Dr. Rao', 'Dermatologist', 800),
+('Dr. Khan', 'Orthopedic', 1200),
+('Dr. Gupta', 'General Physician', 500);
+INSERT 0 4
+hospital_db=# CREATE TABLE appointments (
+  appointment_id SERIAL PRIMARY KEY,
+  patient_id INT REFERENCES patients(patient_id),
+  doctor_id INT REFERENCES doctors(doctor_id),
+  appointment_datetime TIMESTAMP,
+  status VARCHAR(20)
+);
+CREATE TABLE
+hospital_db=# INSERT INTO appointments (patient_id, doctor_id, appointment_datetime, status) VALUES
+-- Amit Sharma
+(1, 1, '2026-04-01 10:00:00', 'Completed'),
+(1, 3, '2026-04-05 14:30:00', 'Completed'),
 
+-- Priya Verma
+(2, 2, '2026-04-02 11:00:00', 'Completed'),
+(2, 3, '2026-04-08 16:00:00', 'Completed'),
+
+-- Rahul Singh
+(3, 1, '2026-04-03 09:30:00', 'Cancelled'),
+
+-- Sneha Kapoor
+(4, 4, '2026-04-06 13:00:00', 'Completed'),
+(4, 2, '2026-04-10 10:30:00', 'Pending'),
+
+-- Vikas Gupta
+(5, 1, '2026-04-07 15:00:00', 'Pending'),
+(5, 3, '2026-04-12 12:00:00', 'Completed');
+INSERT 0 9
+hospital_db=# CREATE TABLE bills (
+  bill_id SERIAL PRIMARY KEY,
+  appointment_id INT REFERENCES appointments(appointment_id),
+  total_amount INT,
+  payment_status VARCHAR(20)
+);
+CREATE TABLE
+hospital_db=# INSERT INTO bills (appointment_id, total_amount, payment_status) VALUES
+(1, 1500, 'Paid'),
+(2, 800, 'Paid'),
+(4, 2000, 'Unpaid'),
+(5, 500, 'Paid'),
+(7, 1800, 'Paid');
+INSERT 0 5
+```
+1. All patient from delhi
+```bash
+hospital_db=# select * from patients where city ilike 'delhi';
+ patient_id |     name     | age | gender | city  
+------------+--------------+-----+--------+-------
+          1 | Amit Sharma  |  30 | Male   | Delhi
+          4 | Sneha Kapoor |  35 | Female | Delhi
+(2 rows)
+```
+2. doctor with consultation fees > 800
+```bash
+hospital_db=# select * from doctors where consultation_fee > 800;
+ doctor_id |   name    | specialization | consultation_fee 
+-----------+-----------+----------------+------------------
+         1 | Dr. Mehta | Cardiologist   |             1000
+         3 | Dr. Khan  | Orthopedic     |             1200
+(2 rows)
+```
+3. appointments that are completed
+```bash
+hospital_db=# select * from appointments where status ilike 'completed';
+ appointment_id | patient_id | doctor_id | appointment_datetime |  status   
+----------------+------------+-----------+----------------------+-----------
+              1 |          1 |         1 | 2026-04-01 10:00:00  | Completed
+              2 |          1 |         3 | 2026-04-05 14:30:00  | Completed
+              3 |          2 |         2 | 2026-04-02 11:00:00  | Completed
+              4 |          2 |         3 | 2026-04-08 16:00:00  | Completed
+              6 |          4 |         4 | 2026-04-06 13:00:00  | Completed
+              9 |          5 |         3 | 2026-04-12 12:00:00  | Completed
+(6 rows)
+```
+4. patient name, doctor name and appointment date
+```bash
+hospital_db=# select p.name as patient_name,
+hospital_db-# d.name as doctor_name,
+hospital_db-# a.appointment_datetime
+hospital_db-# from appointments a
+hospital_db-# join patients p on a.patient_id=p.patient_id
+hospital_db-# join doctors d on a.doctor_id=d.doctor_id;
+ patient_name | doctor_name | appointment_datetime 
+--------------+-------------+----------------------
+ Amit Sharma  | Dr. Mehta   | 2026-04-01 10:00:00
+ Amit Sharma  | Dr. Khan    | 2026-04-05 14:30:00
+ Priya Verma  | Dr. Rao     | 2026-04-02 11:00:00
+ Priya Verma  | Dr. Khan    | 2026-04-08 16:00:00
+ Rahul Singh  | Dr. Mehta   | 2026-04-03 09:30:00
+ Sneha Kapoor | Dr. Gupta   | 2026-04-06 13:00:00
+ Sneha Kapoor | Dr. Rao     | 2026-04-10 10:30:00
+ Vikas Gupta  | Dr. Mehta   | 2026-04-07 15:00:00
+ Vikas Gupta  | Dr. Khan    | 2026-04-12 12:00:00
+(9 rows)
+```
+5. total appointment for each doctor
+```bash
+hospital_db=# select * from appointments where status ilike 'completed';
+hospital_db=# select d.name as doctor_name,
+hospital_db-# count(a.appointment_id) as total_appointments
+hospital_db-# from doctors d
+hospital_db-# left join appointments a 
+hospital_db-# on d.doctor_id = a.doctor_id
+hospital_db-# group by d.name;
+ doctor_name | total_appointments 
+-------------+--------------------
+ Dr. Mehta   |                  3
+ Dr. Rao     |                  2
+ Dr. Gupta   |                  1
+ Dr. Khan    |                  3
+(4 rows)
+```
+6. Total revenue (only PAID bills)
+```bash
+hospital_db=# select sum(total_amount) as total_revenue
+hospital_db-# from bills
+hospital_db-# where payment_status = 'Paid';
+ total_revenue 
+---------------
+          4600
+(1 row)
+```
+7. Patients who NEVER had an appointment
+```bash
+hospital_db=# select p.name
+hospital_db-# from patients p
+hospital_db-# left join appointments a
+hospital_db-# on p.patient_id = a.patient_id
+hospital_db-# where a.patient_id is NULL;
+ name 
+------
+(0 rows)
+```
+8. Doctor with highest number of appointments
+```bash
+hospital_db=# select d.name, count(a.appointment_id) as total_appointments
+hospital_db-# from doctors d
+hospital_db-# join appointments a 
+hospital_db-# on d.doctor_id = a.doctor_id
+hospital_db-# group by d.name
+hospital_db-# order by total_appointments desc
+hospital_db-# limit 1;
+   name    | total_appointments 
+-----------+--------------------
+ Dr. Mehta |                  3
+(1 row)
+```
+9. Patients who visited more than 1 doctor
+```bash
+hospital_db=# select p.name, count(Distinct a.doctor_id) as doctor_count
+hospital_db-# from patients p
+hospital_db-# join appointments a
+hospital_db-# on p.patient_id=a.patient_id
+hospital_db-# group by p.name
+hospital_db-# having count(distinct a.doctor_id)>1;
+     name     | doctor_count 
+--------------+--------------
+ Amit Sharma  |            2
+ Priya Verma  |            2
+ Sneha Kapoor |            2
+ Vikas Gupta  |            2
+(4 rows)
+```
