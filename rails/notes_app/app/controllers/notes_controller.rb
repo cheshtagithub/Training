@@ -3,7 +3,12 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
 
   def index
-    @notes = current_user.notes
+    if params[:search].present?
+      @notes = current_user.notes.where("title ILIKE ?", "%#{params[:search]}%").page(params[:page]).per(4)
+      
+    else
+      @notes = current_user.notes.page(params[:page]).per(4)  
+    end
   end
   
   def show

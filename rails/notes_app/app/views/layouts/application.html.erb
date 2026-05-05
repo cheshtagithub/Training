@@ -24,6 +24,11 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <div style="display:flex; justify-content:space-between;">
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -1,16 +1,24 @@
+<%= form_with url: notes_path, method: :get, data: { turbo_frame: "notes_list" } do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search notes..." %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <h1>Your Notes</h1>
 
 <%= link_to "New Note", new_note_path %>
 
 <hr>
+<turbo-frame id="notes_list">
 
-<% @notes.each do |note| %>
-    <div>
-        <h3><%= link_to note.title, note %></h3>
-        <p><%= note.content %></p>
+    <% @notes.each do |note| %>
+        <div>
+            <h3><%= link_to note.title, note, data: { turbo_frame: "_top" } %></h3>
+            <p><%= note.content %></p>
 
-        <%= link_to "Edit", edit_note_path(note) %> |
-        <%= link_to "Delete", note, method: :delete, data: { confirm: "Are you sure?" } %>
-    </div>
-    <hr>
-<% end %>    
+            <%= link_to "Edit", edit_note_path(note) %> |
+            <%= link_to "Delete", note, method: :delete, data: { confirm: "Are you sure?" } %>
+        </div>
+        <hr>
+    <% end %>    
+    <%= paginate @notes %>
+</turbo-frame>

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if user_signed_in?
-      # later we will show notes here
+      redirect_to notes_path
     else
       redirect_to new_user_session_path
     end
